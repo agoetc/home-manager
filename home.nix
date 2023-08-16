@@ -5,7 +5,9 @@
   home.username = "takegawa";
   home.homeDirectory = "/Users/takegawa";
   
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
 
   imports = [
     ./shell/zsh.nix

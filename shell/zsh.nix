@@ -13,12 +13,14 @@
       # fzf
       source ${pkgs.fzf}/share/fzf/completion.zsh
       source ${pkgs.fzf}/share/fzf/key-bindings.zsh
+      source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
 
       export HISTFILE=~/.zsh_history
       export HISTSIZE=10000
       export SAVEHIST=10000
       setopt HIST_IGNORE_DUPS
       bindkey '^R' fzf-history-widget
+      
     '';
   };
 
@@ -34,7 +36,9 @@
   home.packages = with pkgs; [
     zsh
     fzf
+    zsh-fzf-tab
     ghq
+    zsh-completions
     zsh-autosuggestions
     zsh-syntax-highlighting
     starship # theme
