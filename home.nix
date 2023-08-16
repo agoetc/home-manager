@@ -1,30 +1,26 @@
 { config, pkgs, ... }:
 
 {
+  # ユーザ情報
   home.username = "takegawa";
   home.homeDirectory = "/Users/takegawa";
+  
+  nixpkgs.config.allowUnfree = true;
 
-  home.stateVersion = "23.11"; # Please read the comment before changing.
-
-  home.packages = [
-    pkgs.hello
-    pkgs.starship
-    pkgs.git   
-
-    (pkgs.writeShellScriptBin "my-hello" ''
-      echo "Hello, ${config.home.username}!"
-    '')
+  imports = [
+    ./shell/zsh.nix
+    # ./shell/fish.nix
   ];
 
-  home.file = {
-  };
-
-  home.sessionVariables = {
-    EDITOR = "vim";
-  };
+  # 依存系
+  home.stateVersion = "23.11";
+  home.packages = [
+    pkgs.git
+    pkgs.gh
+    pkgs.vscode
+    pkgs.docker # 別途docker for macのインストールが必要
+  ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
 }
-
