@@ -1,27 +1,27 @@
 { config, pkgs, ... }:
 
-{
-  # ユーザ情報
-  home.username = "takegawa";
-  home.homeDirectory = "/Users/takegawa";
-  
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
-
+{  
   imports = [
     ./shell/zsh.nix
     # ./shell/fish.nix
   ];
 
   # 依存系
-  home.stateVersion = "23.11";
-  home.packages = [
-    pkgs.git
-    pkgs.gh
-    pkgs.vscode
+  home.packages = with pkgs; [
+    git
+    gh
+    vscode
+    jq
   ];
+  
+  # ユーザ情報
+  home.username = "takegawa";
+  home.homeDirectory = "/Users/takegawa";
 
-  # Let Home Manager install and manage itself.
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
+
+  home.stateVersion = "23.11";
   programs.home-manager.enable = true;
 }
