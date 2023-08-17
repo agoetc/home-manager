@@ -1,1 +1,1 @@
-cp -r ./ ~/.config/nix/
+cp -r ./ ~/.config/home-manager/

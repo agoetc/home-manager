@@ -20,7 +20,6 @@
       export SAVEHIST=10000
       setopt HIST_IGNORE_DUPS
       bindkey '^R' fzf-history-widget
-      
     '';
   };
 
@@ -30,7 +29,6 @@
 
   home.sessionVariables = {
     EDITOR = "vim";
-    FZF_DEFAULT_COMMAND = "ghq list --full-path | grep -v '/.git$'";
   };
 
   home.packages = with pkgs; [
