@@ -20,7 +20,6 @@
     pkgs.git
     pkgs.gh
     pkgs.vscode
-    pkgs.docker # 別途docker for macのインストールが必要
   ];
 
   # Let Home Manager install and manage itself.
