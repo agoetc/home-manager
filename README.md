@@ -11,3 +11,7 @@ git clone https://github.com/agoetc/home-manager.git
 cd home-manager
 sh copy-to-home.sh
 ```
+
+```
+home-manager switch
+```
