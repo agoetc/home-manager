@@ -5,11 +5,6 @@
     enable = true;
 
     initExtraBeforeCompInit = ''
-      source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-      source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-      source ${pkgs.git}/share/bash-completion/completions/git-prompt.sh
-      source ${pkgs.docker}/share/zsh/site-functions/_docker
-
       # fzf
       source ${pkgs.fzf}/share/fzf/completion.zsh
       source ${pkgs.fzf}/share/fzf/key-bindings.zsh
@@ -19,8 +14,17 @@
       export HISTSIZE=10000
       export SAVEHIST=10000
       setopt HIST_IGNORE_DUPS
-      bindkey '^R' fzf-history-widget
     '';
+
+    oh-my-zsh = {
+      enable = true;
+      plugins = [
+        "git"
+        "docker"
+        "fzf"
+      ];
+    };
+
   };
 
   programs.starship = {
@@ -33,6 +37,7 @@
 
   home.packages = with pkgs; [
     zsh
+    oh-my-zsh
     fzf
     zsh-fzf-tab
     ghq
