@@ -10,10 +10,17 @@
   home.packages = with pkgs; [
     git
     gh
-    vscode
     jq
 
     awscli
+
+    # tool
+    vscode
+    slack
+
+    # lang
+    scala
+    sbt
   ];
   
   # ユーザ情報
