@@ -12,6 +12,8 @@
     gh
     vscode
     jq
+
+    awscli
   ];
   
   # ユーザ情報

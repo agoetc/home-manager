@@ -13,6 +13,10 @@
       export HISTSIZE=10000
       export SAVEHIST=10000
       setopt HIST_IGNORE_DUPS
+
+      # asdf
+      source ${pkgs.asdf-vm}/share/zsh/site-functions/_asdf
+      . "$HOME/.nix-profile/share/asdf-vm/asdf.sh"
     '';
 
     oh-my-zsh = {
@@ -45,5 +49,7 @@
     zsh-autosuggestions
     zsh-syntax-highlighting
     starship # theme
+
+    asdf-vm
   ];
 }
