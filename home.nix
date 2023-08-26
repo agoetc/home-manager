@@ -21,8 +21,14 @@
     # lang
     scala
     sbt
+
+    just
   ];
-  
+
+  home.sessionVariables = {
+    GHQ_ROOT = "$HOME/Work";
+  };
+
   # ユーザ情報
   home.username = "takegawa";
   home.homeDirectory = "/Users/takegawa";

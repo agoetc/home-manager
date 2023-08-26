@@ -4,7 +4,7 @@
   programs.zsh = {
     enable = true;
 
-    initExtraBeforeCompInit = ''
+    initExtra = ''
       # fzf
       source ${pkgs.fzf}/share/fzf/key-bindings.zsh
       source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
@@ -15,16 +15,7 @@
       setopt HIST_IGNORE_DUPS
 
       # ghq
-      function ghq-fzf() {
-        local src=$(ghq list | fzf --preview "ls -laTp $(ghq root)/{} | tail -n+4 | awk '{print \$9\"/\"\$6\"/\"\$7 \" \" \$10}'")
-        if [ -n "$src" ]; then
-          BUFFER="cd $(ghq root)/$src"
-          zle accept-line
-        fi
-        zle -R -c
-      }
-      zle -N ghq-fzf
-      bindkey '^g' ghq-fzf
+      source $HOME/.config/home-manager/shell/ghq-zsh.sh
 
       # asdf
       source ${pkgs.asdf-vm}/share/zsh/site-functions/_asdf
