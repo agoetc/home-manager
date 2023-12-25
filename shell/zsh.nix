@@ -30,10 +30,6 @@
         EDITOR = "vim";
     };
 
-    home.sessionVariables = {
-        GHQ_ROOT = "$HOME/Work";
-    };
-
     programs.zsh = {
         enable = true;
 
