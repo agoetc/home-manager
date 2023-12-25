@@ -8,9 +8,9 @@
         jq
         just
 
-        # zsh 便利系
+        # zsh系
         zsh
-        oh-my-zsh
+        oh-my-zsh # plugin manager
         fzf
         ghq
         zsh-completions
