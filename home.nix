@@ -1,42 +1,19 @@
 { config, pkgs, ... }:
 
-{  
-  imports = [
-    ./shell/zsh.nix
-    # ./shell/fish.nix
-  ];
+{
+    # ユーザ情報
+    home.username = "takegawa";
+    home.homeDirectory = "/Users/takegawa";
 
-  # 依存系
-  home.packages = with pkgs; [
-    git
-    gh
-    jq
+    nixpkgs.config = {
+        allowUnfree = true;
+    };
 
-    awscli
+    home.stateVersion = "24.05";
+    programs.home-manager.enable = true;
 
-    # tool
-    vscode
-    slack
-
-    # lang
-    scala
-    sbt
-
-    just
-  ];
-
-  home.sessionVariables = {
-    GHQ_ROOT = "$HOME/Work";
-  };
-
-  # ユーザ情報
-  home.username = "takegawa";
-  home.homeDirectory = "/Users/takegawa";
-
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
-
-  home.stateVersion = "23.11";
-  programs.home-manager.enable = true;
+    imports = [
+        ./shell/zsh.nix
+        # ./shell/fish.nix
+    ];
 }
