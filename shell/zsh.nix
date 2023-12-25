@@ -26,10 +26,6 @@
         enable = true;
     };
 
-    home.sessionVariables = {
-        EDITOR = "vim";
-    };
-
     programs.zsh = {
         enable = true;
 
