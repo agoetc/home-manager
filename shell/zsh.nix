@@ -41,6 +41,8 @@
 
         initExtra = ''
             bindkey -e
+            bindkey "[D" backward-word
+            bindkey "[C" forward-word
 
             export HISTFILE=~/.zsh_history
             export HISTSIZE=10000

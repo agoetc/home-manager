@@ -10,7 +10,7 @@
             EDITOR = "vim";
         };
 
-        stateVersion = "24.05";
+        stateVersion = "23.11";
     };
 
     nixpkgs.config = {
