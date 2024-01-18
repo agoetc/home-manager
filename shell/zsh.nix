@@ -5,8 +5,10 @@
         # cli系
         git
         gh
+        difftastic
         jq
         just
+        awscli2
 
         # zsh系
         zsh
