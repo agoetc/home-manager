@@ -7,8 +7,6 @@
         gh
         difftastic
         jq
-        just
-        awscli2
 
         # zsh系
         zsh
@@ -19,9 +17,13 @@
         zsh-autosuggestions
         zsh-syntax-highlighting
         starship # theme
+        bat
 
         # asdf
         asdf-vm
+
+        # awscliはasdfでInstallしている前提
+        ssm-session-manager-plugin
     ];
 
     programs.starship = {
@@ -35,9 +37,11 @@
             enable = true;
             plugins = [
                 "git"
-                "docker"
                 "fzf"
                 "z"
+                "docker"
+                "kubectl"
+                "terraform"
             ];
         };
 
