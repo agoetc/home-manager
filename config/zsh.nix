@@ -10,6 +10,10 @@
     ghq
   ];
 
+  programs.starship = {
+    enable = true;
+  };
+
   programs.zsh = {
     enable = true;
 
@@ -27,7 +31,7 @@
 
     history = {
       ignoreAllDups = true;
-      path = "${config.xdg.dataHome}/zsh/history";
+      path = "~/zsh/history";
       save = 10000;
       size = 10000;
       share = true;
@@ -37,13 +41,6 @@
       bindkey -e
       bindkey "[D" backward-word
       bindkey "[C" forward-word
-
-      # asdf
-      source ${pkgs.asdf-vm}/share/zsh/site-functions/_asdf
-      . "$HOME/.nix-profile/share/asdf-vm/asdf.sh"
-      . "$HOME/.asdf/plugins/java/set-java-home.bash"
-
-      alias dc="docker compose"
 
       # fzf
       source ${pkgs.fzf}/share/fzf/key-bindings.zsh

@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  settings.experimental-features = [ "nix-command" "flakes" ];
+
+  programs.home-manager = {
+    enable = true;
+  };
+
   home = {
     username = "takegawa";
     homeDirectory = "/Users/takegawa";
@@ -8,6 +14,7 @@
   };
 
 
+  # 設定や依存のないものだけここで定義
   home.packages = with pkgs; [
       gh
       difftastic
@@ -17,5 +24,6 @@
 
   imports = [
     ./config/zsh.nix
+    ./config/asdf.nix
   ];
 }
