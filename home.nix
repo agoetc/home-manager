@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  settings.experimental-features = [ "nix-command" "flakes" ];
-
   programs.home-manager = {
     enable = true;
   };

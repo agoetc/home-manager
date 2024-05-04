@@ -31,7 +31,7 @@
 
     history = {
       ignoreAllDups = true;
-      path = "~/zsh/history";
+      path = "$HOME/zsh/history";
       save = 10000;
       size = 10000;
       share = true;
