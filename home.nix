@@ -23,5 +23,6 @@
   imports = [
     ./config/zsh.nix
     ./config/asdf.nix
+    ./config/aws.nix
   ];
 }
