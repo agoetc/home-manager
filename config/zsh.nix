@@ -37,6 +37,11 @@
       share = true;
     };
 
+    shellAliases = {
+      dc = "docker compose";
+      d = "docker";
+    };
+
     initExtra = ''
       bindkey -e
       bindkey "[D" backward-word
