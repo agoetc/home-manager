@@ -26,6 +26,7 @@
         "docker"
         "kubectl"
         "terraform"
+        "aws"
       ];
     };
 
