@@ -1,6 +1,5 @@
 ## 適用
 ```
-home-manager build
 home-manager switch
 ```
 
