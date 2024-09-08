@@ -27,6 +27,7 @@
         "kubectl"
         "terraform"
         "aws"
+        "dotenv"
       ];
     };
 
