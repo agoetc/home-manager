@@ -5,7 +5,7 @@ home-manager switch
 
 ## 事前install
 - nixのインストール
-  - https://github.com/DeterminateSystems/nix-installer
+  - https://nix.dev/manual/nix/2.24/installation/
 - home-managerのインストール
   - https://nix-community.github.io/home-manager/index.html#sec-install-standalone
 
