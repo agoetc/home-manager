@@ -17,6 +17,8 @@
       gh
       difftastic
       jq
+      wget
+      mysql
       online-judge-tools
     ];
 
