@@ -18,8 +18,9 @@
       difftastic
       jq
       wget
-      mysql
+      mysql80
       online-judge-tools
+      uv
     ];
 
   imports = [
