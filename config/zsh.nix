@@ -8,6 +8,7 @@
     starship
     fzf
     ghq
+    just
   ];
 
   programs.starship = {
@@ -27,7 +28,6 @@
         "kubectl"
         "terraform"
         "aws"
-        "dotenv"
       ];
     };
 
@@ -55,6 +55,11 @@
       # ghq
       export GHQ_ROOT="$HOME/Work";
       source $HOME/.config/home-manager/shell/ghq-zsh.sh
+
+      # just completion
+      if [ -e "${pkgs.just}/share/zsh/site-functions/_just" ]; then
+        source "${pkgs.just}/share/zsh/site-functions/_just"
+      fi
 
       source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
       source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
