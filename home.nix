@@ -1,6 +1,9 @@
 { config, pkgs, ... }:
 
 {
+  # アンフリーライセンスのパッケージを許可
+  nixpkgs.config.allowUnfree = true;
+
   programs.home-manager = {
     enable = true;
   };
@@ -21,6 +24,8 @@
       mysql80
       online-judge-tools
       uv
+      socat
+      claude-code
     ];
 
   imports = [

@@ -44,7 +44,12 @@
       d = "docker";
     };
 
-    initExtra = ''
+    initContent = ''
+      # Nix環境の読み込み
+      if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+        source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+      fi
+
       bindkey -e
       bindkey "[D" backward-word
       bindkey "[C" forward-word
