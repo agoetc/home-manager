@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-master, ... }:
 
 {
   # アンフリーライセンスのパッケージを許可
@@ -25,7 +25,7 @@
       online-judge-tools
       uv
       socat
-      claude-code
+      pkgs-master.claude-code
     ];
 
   imports = [
