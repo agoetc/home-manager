@@ -33,5 +33,6 @@
     ./config/asdf.nix
     ./config/aws.nix
     ./config/nvim.nix
+    ./config/git.nix
   ];
 }
