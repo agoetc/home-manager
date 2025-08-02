@@ -21,11 +21,12 @@
       difftastic
       jq
       wget
-      mysql80
+      mysql84
       online-judge-tools
       uv
       socat
       pkgs-master.claude-code
+      pkgs-master.k9s
     ];
 
   imports = [
