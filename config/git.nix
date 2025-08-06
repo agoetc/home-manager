@@ -3,6 +3,12 @@
 {
   programs.git = {
     enable = true;
+    ignores = [
+      ".serena"
+      ".idea"
+      ".vscode"
+      ".claude/settings.local.json"
+    ];
     aliases = {
       # merge済みブランチを削除
       cleanup = "!git branch --merged | grep -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d";
