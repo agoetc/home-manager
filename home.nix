@@ -26,6 +26,7 @@
       uv
       socat
       pkgs-master.claude-code
+      pkgs-master.codex
       pkgs-master.k9s
     ];
 
