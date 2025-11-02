@@ -33,7 +33,7 @@
 
   imports = [
     ./config/zsh.nix
-    ./config/asdf.nix
+    ./config/mise.nix
     ./config/aws.nix
     ./config/nvim.nix
     ./config/git.nix
