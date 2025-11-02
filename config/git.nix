@@ -8,6 +8,8 @@
       ".idea"
       ".vscode"
       ".claude/settings.local.json"
+      "tsconfig.tsbuildinfo"
+      ".DS_Store"
     ];
     aliases = {
       # merge済みブランチを削除

@@ -1,5 +1,6 @@
 ## 適用
 ```sh
+nix-channel --update
 nix flake update
 home-manager switch
 ```
