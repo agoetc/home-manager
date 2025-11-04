@@ -13,6 +13,10 @@
         terraform = "1.7.0";
         java = "temurin-25.0.0+36.0.LTS";
       };
+      settings = {
+        # プロジェクトごとの.python-version, .node-versionなどを有効化
+        idiomatic_version_file_enable_tools = ["python" "node" "java"];
+      };
     };
   };
 }
