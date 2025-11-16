@@ -26,6 +26,7 @@
       uv
       socat
       stripe-cli
+      xlsx2csv
       pkgs-master.claude-code
       pkgs-master.codex
       pkgs-master.k9s

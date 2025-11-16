@@ -42,6 +42,7 @@
     shellAliases = {
       dc = "docker compose";
       d = "docker";
+      sail = "[ -f sail ] && sh sail || sh vendor/bin/sail";
     };
 
     initContent = ''
