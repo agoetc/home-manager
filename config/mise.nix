@@ -4,6 +4,7 @@
   programs.mise = {
     enable = true;
     enableZshIntegration = true;
+    enableFishIntegration = false;
     globalConfig = {
       tools = {
         node = "22.21.0";
