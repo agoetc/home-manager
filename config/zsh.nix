@@ -7,10 +7,11 @@
     zsh-completions
     zsh-fzf-tab
     zsh-powerlevel10k
-
+    nix-zsh-completions
     fzf
     ghq
     just
+    zoxide
   ];
 
   programs.zsh = {
@@ -43,7 +44,6 @@
       plugins = [
         "git"
         "fzf"
-        "z"
         "docker"
         "kubectl"
         "terraform"
@@ -63,6 +63,7 @@
       dc = "docker compose";
       d = "docker";
       sail = "[ -f sail ] && sh sail || sh vendor/bin/sail";
+      kp = "f() { lsof -ti:$1 | xargs kill -9 2>/dev/null || echo \"No process on port $1\"; }; f";
     };
 
     initContent = ''
@@ -100,6 +101,9 @@
       # just
       [ -e "${pkgs.just}/share/zsh/site-functions/_just" ] && \
         source "${pkgs.just}/share/zsh/site-functions/_just"
+
+      # zoxide
+      eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 
       # ============================================
       # zshプラグイン (読み込み順序に注意)
