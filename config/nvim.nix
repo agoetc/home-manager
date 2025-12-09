@@ -7,7 +7,12 @@
     vimAlias = true;
 
     plugins = with pkgs.vimPlugins; [
-        nvim-treesitter.withAllGrammars
+      nvim-treesitter.withAllGrammars
+      dracula-nvim
     ];
+
+    extraConfig = ''
+      colorscheme dracula
+    '';
   };
 }
