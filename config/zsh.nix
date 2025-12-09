@@ -6,16 +6,12 @@
     zsh-syntax-highlighting
     zsh-completions
     zsh-fzf-tab
+    zsh-powerlevel10k
 
-    starship
     fzf
     ghq
     just
   ];
-
-  programs.starship = {
-    enable = true;
-  };
 
   programs.zsh = {
     enable = true;
@@ -71,6 +67,13 @@
 
     initContent = ''
       # ============================================
+      # Powerlevel10k Instant Prompt (最初に読み込む)
+      # ============================================
+      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+      fi
+
+      # ============================================
       # 環境設定
       # ============================================
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
@@ -110,8 +113,12 @@
       # 2. syntax-highlighting
       source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-      # 3. autosuggestions (最後)
+      # 3. autosuggestions
       source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+      # 4. powerlevel10k (最後)
+      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+      [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
     '';
   };
 }
