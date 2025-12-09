@@ -12,6 +12,9 @@
     username = "takegawa";
     homeDirectory = "/Users/takegawa";
     stateVersion = "24.05";
+
+    # Last login メッセージを非表示
+    file.".hushlogin".text = "";
   };
 
 

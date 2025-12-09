@@ -19,6 +19,9 @@
     enableCompletion = true;
 
     completionInit = ''
+      # nix-profile の補完を読み込む
+      fpath+=~/.nix-profile/share/zsh/site-functions
+
       autoload -Uz compinit && compinit
 
       # 大文字小文字を無視
@@ -80,6 +83,10 @@
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
         source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
+
+      # nix-profile の補完を有効化
+      fpath=(~/.nix-profile/share/zsh/site-functions $fpath)
+      autoload -Uz compinit && compinit
 
       # ============================================
       # キーバインド
