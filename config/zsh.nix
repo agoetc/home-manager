@@ -47,7 +47,6 @@
       plugins = [
         "git"
         "fzf"
-        "docker"
         "kubectl"
         "terraform"
         "aws"

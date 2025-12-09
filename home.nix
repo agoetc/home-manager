@@ -15,6 +15,18 @@
 
     # Last login メッセージを非表示
     file.".hushlogin".text = "";
+
+    # colimaデフォルト設定テンプレート
+    file.".colima/_templates/default.yaml".text = ''
+      cpu: 6
+      disk: 100
+      memory: 16
+      arch: x86_64
+      runtime: docker
+      hostname: ""
+      kubernetes:
+        enabled: true
+    '';
   };
 
 
@@ -30,6 +42,9 @@
       socat
       stripe-cli
       xlsx2csv
+      colima
+      docker-client
+      kubectl
       pkgs-master.claude-code
       pkgs-master.codex
       pkgs-master.k9s
