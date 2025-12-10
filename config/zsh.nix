@@ -66,6 +66,11 @@
       d = "docker";
       sail = "[ -f sail ] && sh sail || sh vendor/bin/sail";
       kp = "f() { lsof -ti:$1 | xargs kill -9 2>/dev/null || echo \"No process on port $1\"; }; f";
+      # eza
+      ls = "eza";
+      ll = "eza -la";
+      la = "eza -a";
+      lt = "eza --tree";
     };
 
     initContent = ''

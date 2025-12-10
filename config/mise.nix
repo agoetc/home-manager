@@ -13,6 +13,7 @@
         helm = "3.14.0";
         terraform = "1.7.0";
         java = "temurin-25.0.0+36.0.LTS";
+        "scala-cli" = "latest";
       };
       settings = {
         # プロジェクトごとの.python-version, .node-versionなどを有効化
