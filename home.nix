@@ -40,6 +40,7 @@
       - `just`: タスクランナー。justfileがあれば使う
       - `mc`: MinIO Client。S3互換ストレージ操作
       - `scala-cli`: Scalaの簡単な挙動確認に使うこと。`--server=false`オプション必須
+      - `colima`: Docker環境。事前に`colima start`が必要
     '';
     };
 
@@ -80,6 +81,8 @@
       fd
       eza
       minio-client
+      lazygit
+      lazydocker
     ];
 
   imports = [
