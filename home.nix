@@ -40,21 +40,9 @@
       - `just`: タスクランナー。justfileがあれば使う
       - `mc`: MinIO Client。S3互換ストレージ操作
       - `scala-cli`: Scalaの簡単な挙動確認に使うこと。`--server=false`オプション必須
-      - `colima`: Docker環境。事前に`colima start`が必要
     '';
     };
 
-    # colimaデフォルト設定テンプレート
-    file.".colima/_templates/default.yaml".text = ''
-      cpu: 6
-      disk: 100
-      memory: 16
-      arch: x86_64
-      runtime: docker
-      hostname: ""
-      kubernetes:
-        enabled: true
-    '';
   };
 
 
@@ -70,8 +58,6 @@
       socat
       stripe-cli
       xlsx2csv
-      colima
-      docker-client
       kubectl
       pkgs-master.claude-code
       pkgs-master.codex
