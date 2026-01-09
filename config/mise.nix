@@ -14,6 +14,7 @@
         terraform = "1.7.0";
         java = "temurin-25.0.0+36.0.LTS";
         "scala-cli" = "latest";
+        "npm:@antfu/ni" = "latest";
       };
       settings = {
         # プロジェクトごとの.python-version, .node-versionなどを有効化
