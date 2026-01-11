@@ -138,6 +138,11 @@
       # 4. powerlevel10k (最後)
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+
+      # ============================================
+      # iTerm2 Shell Integration
+      # ============================================
+      test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"
     '';
   };
 }
