@@ -106,7 +106,6 @@
       source ${pkgs.fzf}/share/fzf/key-bindings.zsh
 
       # ghq
-      export GHQ_ROOT="$HOME/Work"
       source $HOME/.config/home-manager/shell/ghq-zsh.sh
 
       # just

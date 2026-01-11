@@ -12,6 +12,12 @@
       ".DS_Store"
     ];
     settings = {
+      ghq = {
+        root = [
+          "~/Work"
+          "~/.config"
+        ];
+      };
       alias = {
         # merge済みブランチを削除
         cleanup = "!git branch --merged | grep -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d";
