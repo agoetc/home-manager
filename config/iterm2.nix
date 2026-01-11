@@ -28,23 +28,24 @@ let
         "Draw Powerline Glyphs" = true;
 
         # ウィンドウ設定
-        Columns = 80;
-        Rows = 25;
+        Columns = 120;
+        Rows = 35;
         "Window Type" = 0;
         "Disable Window Resizing" = true;
         Transparency = 0;
         Blur = false;
 
         # カーソル設定
-        "Blinking Cursor" = false;
+        "Cursor Type" = 1;  # 0=Underline, 1=Vertical bar, 2=Box
+        "Blinking Cursor" = true;
 
         # スクロール設定
         "Scrollback Lines" = 10000;
-        "Unlimited Scrollback" = false;
+        "Unlimited Scrollback" = true;
 
         # ベル設定
-        "Silence Bell" = false;
-        "Visual Bell" = false;
+        "Silence Bell" = true;
+        "Visual Bell" = true;
         "Flashing Bell" = false;
         "BM Growl" = true;
 
@@ -153,6 +154,12 @@ let
             action = "BounceTrigger";
           }
         ];
+
+        # Semantic History（Cmd+クリックでファイルを開く）
+        "Semantic History" = {
+          editor = "nvim";
+          action = "best editor";
+        };
       }
     ];
   };
