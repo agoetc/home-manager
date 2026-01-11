@@ -14,8 +14,7 @@ let
 
         # シェル・ディレクトリ設定
         "Custom Command" = "No";
-        "Custom Directory" = "Recycle";
-        "Working Directory" = "/Users/takegawa";
+        "Custom Directory" = "Recycle";  # 前回のディレクトリを再利用
 
         # フォント設定
         "Normal Font" = "MesloLGS-NF-Regular 13";
@@ -144,16 +143,6 @@ let
           "0xf728-0x80000" = { Action = 10; Text = "d"; };
           "0x7f-0x80000" = { Action = 11; Text = "\"0x1b 0x7f\""; };
         };
-
-        # トリガー
-        Triggers = [
-          {
-            partial = true;
-            parameter = 0;
-            regex = "(DAI-\\d+)\n\n\nDAI-\\d+";
-            action = "BounceTrigger";
-          }
-        ];
 
         # Semantic History（Cmd+クリックでファイルを開く）
         "Semantic History" = {

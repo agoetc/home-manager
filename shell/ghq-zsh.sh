@@ -1,7 +1,8 @@
 function ghq-fzf() {
-    local src=$(ghq list | fzf --preview "ls -laTp $(ghq root)/{} | tail -n+4 | awk '{print \$9\"/\"\$6\"/\"\$7 \" \" \$10}'")
+    # ghq list --full-path を使用して複数rootディレクトリに対応
+    local src=$(ghq list --full-path | fzf --preview "ls -laTp {} | tail -n+4 | awk '{print \$9\"/\"\$6\"/\"\$7 \" \" \$10}'")
     if [ -n "$src" ]; then
-        BUFFER="cd $(ghq root)/$src"
+        BUFFER="cd $src"
         zle accept-line
     fi
     zle -R -c

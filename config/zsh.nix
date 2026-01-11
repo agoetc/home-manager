@@ -116,8 +116,8 @@
       eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 
       # ni (package manager switcher)
-      eval "$(ni --completion-zsh 2>/dev/null)"
-      eval "$(nr --completion-zsh 2>/dev/null)"
+      command -v ni &>/dev/null && eval "$(ni --completion-zsh)"
+      command -v nr &>/dev/null && eval "$(nr --completion-zsh)"
 
       # ============================================
       # zshプラグイン (読み込み順序に注意)
