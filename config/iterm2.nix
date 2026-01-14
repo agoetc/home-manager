@@ -35,7 +35,7 @@ let
         Blur = false;
 
         # カーソル設定
-        "Cursor Type" = 1;  # 0=Underline, 1=Vertical bar, 2=Box
+        "Cursor Type" = 2;  # 0=Underline, 1=Vertical bar, 2=Box
         "Blinking Cursor" = true;
 
         # スクロール設定
