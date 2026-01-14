@@ -1,9 +1,9 @@
 { pkgs-master, ... }:
 
 {
-  home.file = {
-    ".claude/CLAUDE.md".source = ../files/claude/CLAUDE.md;
-    ".claude/commands/review.md".source = ../files/claude/commands/review.md;
+  home.file.".claude" = {
+    source = ../files/claude;
+    recursive = true;
   };
 
   home.packages = [
