@@ -1,6 +1,9 @@
 function ghq-fzf() {
-    # ghq list --full-path を使用して複数rootディレクトリに対応
-    local src=$(ghq list --full-path | fzf --preview "ls -laTp {} | tail -n+4 | awk '{print \$9\"/\"\$6\"/\"\$7 \" \" \$10}'")
+    # 表示: ghq list (プロジェクト名), 値: ghq list --full-path (フルパス)
+    local src=$(paste <(ghq list) <(ghq list --full-path) | \
+        fzf --with-nth 1 --delimiter '\t' \
+            --preview "ls -laTp {2} | tail -n+4 | awk '{print \$9\"/\"\$6\"/\"\$7 \" \" \$10}'" | \
+        cut -f2)
     if [ -n "$src" ]; then
         BUFFER="cd $src"
         zle accept-line
