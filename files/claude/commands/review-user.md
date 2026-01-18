@@ -1,6 +1,4 @@
 # main branchとの差分レビュー
-
-**以下は必ずsubagentで行うこと**
 ultrathink で**容赦なく**評価
 
 ## 姿勢
