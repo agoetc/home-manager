@@ -3,7 +3,7 @@ function ghq-fzf() {
     local src=$(ghq list -p | \
         awk -F/ '{print $NF "\t" $0}' | \
         fzf --with-nth 1 --delimiter '\t' \
-            --preview "eza -la --color=always {2}" | \
+            --preview "eza -1 --color=always {2}" | \
         cut -f2)
     if [ -n "$src" ]; then
         BUFFER="cd $src"
