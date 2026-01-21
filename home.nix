@@ -51,5 +51,6 @@
     ./config/git.nix
     ./config/claude.nix
     ./config/iterm2.nix
+    ./config/ssh.nix
   ];
 }

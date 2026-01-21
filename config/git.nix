@@ -1,8 +1,21 @@
 { config, pkgs, ... }:
 
+let
+  signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB4dt6xMFVi5EFaVVokz2D8LYqV3K9QztXhpBJDd4l9e";
+  email = "tkgw666private@gmail.com";
+in
 {
+  # allowed_signers ファイルを作成
+  home.file.".ssh/allowed_signers".text = ''
+    ${email} ${signingKey}
+  '';
+
   programs.git = {
     enable = true;
+    signing = {
+      key = signingKey;
+      signByDefault = true;
+    };
     ignores = [
       ".serena"
       ".idea"
@@ -14,7 +27,14 @@
     settings = {
       user = {
         name = "agoetc";
-        email = "tkgw666private@gmail.com";
+        email = email;
+      };
+      gpg = {
+        format = "ssh";
+        ssh = {
+          program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+          allowedSignersFile = "~/.ssh/allowed_signers";
+        };
       };
       ghq = {
         root = [
