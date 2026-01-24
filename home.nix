@@ -32,7 +32,6 @@
       stripe-cli
       xlsx2csv
       kubectl
-      pkgs-master.codex
       pkgs-master.k9s
       # CLI tools
       ripgrep
@@ -50,6 +49,7 @@
     ./config/nvim.nix
     ./config/git.nix
     ./config/claude.nix
+    ./config/codex.nix
     ./config/iterm2.nix
     ./config/ssh.nix
   ];
