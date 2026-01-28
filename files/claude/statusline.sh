@@ -1,7 +1,6 @@
 #!/bin/bash
 input=$(cat)
 
-MODEL=$(echo "$input" | jq -r '.model.display_name // "Unknown"')
 PERCENT_USED=$(echo "$input" | jq -r '.context_window.used_percentage // 0')
 DIR=$(echo "$input" | jq -r '.workspace.current_dir // "."')
 
@@ -21,5 +20,5 @@ else
 fi
 RESET="\033[0m"
 
-printf "📂 %s%s | %s ${COLOR}%.1f%%${RESET}" \
-  "$DIR_NAME" "${BRANCH:+ | 🌿 $BRANCH}" "$MODEL" "$PERCENT_USED"
+printf "%s%s | Context: ${COLOR}%.1f%%${RESET}" \
+  "$DIR_NAME" "${BRANCH:+ | $BRANCH}" "$PERCENT_USED"

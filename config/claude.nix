@@ -21,10 +21,13 @@ in
   home.file.".claude" = {
     source = ../files/claude;
     recursive = true;
+    force = true;
   };
 
-  home.file.".claude/settings.json".text =
-    builtins.toJSON claudeSettings;
+  home.file.".claude/settings.json" = {
+    text = builtins.toJSON claudeSettings;
+    force = true;
+  };
 
   home.packages = [
     pkgs-master.claude-code
