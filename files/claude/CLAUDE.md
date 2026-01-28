@@ -17,3 +17,4 @@
 - `just`: タスクランナー。justfileがあれば使う
 - `mc`: MinIO Client。S3互換ストレージ操作
 - `scala-cli`: Scalaの簡単な挙動確認に使うこと。`--server=false`オプション必須
+- `gwq`: Git worktree管理。並列AI開発時に複数ブランチを同時作業
