@@ -133,28 +133,36 @@
     '';
   };
 
-  # Starship prompt (軽量設定)
-  # formatに含まれるモジュールのみ評価されるため、disabled不要
+  # Starship prompt (Pure風)
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
     settings = {
-      command_timeout = 100;
-      scan_timeout = 10;
+      # Pure風: 2行フォーマット
+      format = "$directory$git_branch$git_status$cmd_duration$line_break$character";
 
-      # このformatに含まれるモジュールのみ評価される
-      format = "$directory$git_branch$git_status$character";
+      directory.style = "cyan";
 
       character = {
-        success_symbol = "[❯](green)";
+        success_symbol = "[❯](purple)";
         error_symbol = "[❯](red)";
       };
 
-      directory.truncation_length = 3;
+      git_branch = {
+        format = "[$branch]($style) ";
+        style = "bright-black";
+      };
 
-      git_branch.format = "[$branch]($style) ";
+      git_status = {
+        format = "[$all_status$ahead_behind]($style) ";
+        style = "cyan";
+      };
 
-      git_status.format = "[$all_status$ahead_behind]($style) ";
+      cmd_duration = {
+        format = "[$duration]($style) ";
+        style = "yellow";
+        min_time = 2000;
+      };
     };
   };
 }
