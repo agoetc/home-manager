@@ -49,6 +49,7 @@ in
         prune-local = "!git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -n 1 git branch -D";
         # 両方を実行
         cleanup-all = "!git cleanup && git prune-local";
+        ca = "!git cleanup-all";
         # 人間用（difftastic使う）
         difft = "difftool --no-prompt --extcmd='difft'";
       };
