@@ -6,7 +6,6 @@
     zsh-syntax-highlighting
     zsh-completions
     zsh-fzf-tab
-    zsh-powerlevel10k
     nix-zsh-completions
     fzf
     ghq
@@ -75,13 +74,6 @@
 
     initContent = ''
       # ============================================
-      # Powerlevel10k Instant Prompt (最初に読み込む)
-      # ============================================
-      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-        source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-      fi
-
-      # ============================================
       # 環境設定
       # ============================================
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
@@ -134,14 +126,35 @@
       # 3. autosuggestions
       source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-      # 4. powerlevel10k (最後)
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
-
       # ============================================
       # iTerm2 Shell Integration
       # ============================================
       test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"
     '';
+  };
+
+  # Starship prompt (軽量設定)
+  # formatに含まれるモジュールのみ評価されるため、disabled不要
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      command_timeout = 100;
+      scan_timeout = 10;
+
+      # このformatに含まれるモジュールのみ評価される
+      format = "$directory$git_branch$git_status$character";
+
+      character = {
+        success_symbol = "[❯](green)";
+        error_symbol = "[❯](red)";
+      };
+
+      directory.truncation_length = 3;
+
+      git_branch.format = "[$branch]($style) ";
+
+      git_status.format = "[$all_status$ahead_behind]($style) ";
+    };
   };
 }
