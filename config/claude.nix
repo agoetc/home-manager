@@ -1,10 +1,30 @@
-{ pkgs-master, ... }:
+{ pkgs-master, pkgs, ... }:
 
+let
+  claudeSettings = {
+    "$schema" = "https://json.schemastore.org/claude-code-settings.json";
+    enabledPlugins = {
+      "serena@claude-plugins-official" = true;
+      "context7@claude-plugins-official" = true;
+      "swift-lsp@claude-plugins-official" = true;
+      "Notion@claude-plugins-official" = true;
+      "document-skills@anthropic-agent-skills" = true;
+    };
+    alwaysThinkingEnabled = true;
+    statusLine = {
+      type = "command";
+      command = "~/.claude/statusline.sh";
+    };
+  };
+in
 {
   home.file.".claude" = {
     source = ../files/claude;
     recursive = true;
   };
+
+  home.file.".claude/settings.json".text =
+    builtins.toJSON claudeSettings;
 
   home.packages = [
     pkgs-master.claude-code
