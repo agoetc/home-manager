@@ -7,8 +7,11 @@ DIR=$(echo "$input" | jq -r '.workspace.current_dir // "."')
 # Directory name
 DIR_NAME=$(basename "$DIR")
 
-# Git branch
+# Git branch (with dirty marker)
 BRANCH=$(git -C "$DIR" branch --show-current 2>/dev/null)
+if [ -n "$BRANCH" ] && [ -n "$(git -C "$DIR" status --porcelain 2>/dev/null)" ]; then
+  BRANCH="${BRANCH}*"
+fi
 
 # Context usage color
 if (( $(echo "$PERCENT_USED < 50" | bc -l) )); then
@@ -20,5 +23,5 @@ else
 fi
 RESET="\033[0m"
 
-printf "%s%s | Context: ${COLOR}%.1f%%${RESET}" \
-  "$DIR_NAME" "${BRANCH:+ | $BRANCH}" "$PERCENT_USED"
+printf "Context: ${COLOR}%.1f%%${RESET} | %s%s" \
+  "$PERCENT_USED" "$DIR_NAME" "${BRANCH:+ | $BRANCH}"
