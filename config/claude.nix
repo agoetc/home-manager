@@ -10,6 +10,15 @@ let
       "Notion@claude-plugins-official" = true;
       "document-skills@anthropic-agent-skills" = true;
     };
+    permissions = {
+      allow = [
+        "Bash(rg *)"
+        "Bash(fd *)"
+        "Bash(eza *)"
+        "Bash(jq *)"
+        "Bash(mc *)"
+      ];
+    };
     alwaysThinkingEnabled = true;
     statusLine = {
       type = "command";
