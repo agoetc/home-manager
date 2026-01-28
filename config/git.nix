@@ -52,6 +52,10 @@ in
         ca = "!git cleanup-all";
         # 人間用（difftastic使う）
         difft = "difftool --no-prompt --extcmd='difft'";
+        d = "!git difft";
+        # 現在のブランチをブラウザで開く
+        browse = "!gh browse -b $(git branch --show-current)";
+        b = "!git browse";
       };
     };
   };
