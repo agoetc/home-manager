@@ -1,8 +1,5 @@
 { config, pkgs, pkgs-master, ... }:
 
-let
-  gwq = pkgs.callPackage ./packages/gwq.nix { };
-in
 {
   # アンフリーライセンスのパッケージを許可
   nixpkgs.config.allowUnfree = true;
@@ -43,8 +40,6 @@ in
       minio-client
       lazygit
       lazydocker
-      # Custom packages
-      gwq
     ];
 
   imports = [
@@ -53,6 +48,7 @@ in
     ./config/aws.nix
     ./config/nvim.nix
     ./config/git.nix
+    ./config/gwq.nix
     ./config/claude.nix
     ./config/codex.nix
     ./config/iterm2.nix
