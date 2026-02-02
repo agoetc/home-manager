@@ -17,6 +17,7 @@ in
       signByDefault = true;
     };
     ignores = [
+      ".grepai"
       ".serena"
       ".idea"
       ".vscode"

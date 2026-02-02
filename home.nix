@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-master, ... }:
+{ config, pkgs, pkgs-master, grepai-pkg, ... }:
 
 {
   # アンフリーライセンスのパッケージを許可
@@ -40,6 +40,8 @@
       minio-client
       lazygit
       lazydocker
+      grepai-pkg
+      ollama
     ];
 
   imports = [
