@@ -2,7 +2,7 @@
 
 {
   home.file.".codex/AGENTS.md" = {
-    source = ../files/codex/AGENTS.md;
+    source = ./AGENTS.md;
     force = true;
   };
 

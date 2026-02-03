@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  gwq = pkgs.callPackage ../packages/gwq.nix { };
+  gwq = pkgs.callPackage ./package.nix { };
 in
 {
   home.packages = [ gwq ];

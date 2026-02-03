@@ -98,7 +98,7 @@
       source ${pkgs.fzf}/share/fzf/key-bindings.zsh
 
       # ghq
-      source $HOME/.config/home-manager/shell/ghq-zsh.sh
+      source $HOME/.config/home-manager/programs/zsh/ghq-zsh.sh
 
       # just
       [ -e "${pkgs.just}/share/zsh/site-functions/_just" ] && \

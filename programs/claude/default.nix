@@ -27,7 +27,7 @@ let
 in
 {
   home.file.".claude" = {
-    source = ../files/claude;
+    source = ./.;
     recursive = true;
     force = true;
   };

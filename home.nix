@@ -4,9 +4,7 @@
   # アンフリーライセンスのパッケージを許可
   nixpkgs.config.allowUnfree = true;
 
-  programs.home-manager = {
-    enable = true;
-  };
+  programs.home-manager.enable = true;
 
   home = {
     username = "takegawa";
@@ -23,41 +21,18 @@
     file.".local/bin/.keep".text = "";
   };
 
-
-  # 設定や依存のないものだけここで定義
-  home.packages = with pkgs; [
-      gh
-      difftastic
-      jq
-      wget
-      mysql84
-      online-judge-tools
-      uv
-      socat
-      stripe-cli
-      xlsx2csv
-      kubectl
-      pkgs-master.k9s
-      # CLI tools
-      ripgrep
-      fd
-      eza
-      minio-client
-      lazygit
-      lazydocker
-      ollama
-    ];
-
   imports = [
-    ./config/zsh.nix
-    ./config/mise.nix
-    ./config/aws.nix
-    ./config/nvim.nix
-    ./config/git.nix
-    ./config/gwq.nix
-    ./config/claude.nix
-    ./config/codex.nix
-    ./config/iterm2.nix
-    ./config/ssh.nix
+    ./programs/aws/default.nix
+    ./programs/claude/default.nix
+    ./programs/codex/default.nix
+    ./programs/git/default.nix
+    ./programs/gwq/default.nix
+    ./programs/iterm2/default.nix
+    ./programs/mise/default.nix
+    ./programs/nvim/default.nix
+    ./programs/packages/default.nix
+    ./programs/shogun/default.nix
+    ./programs/ssh/default.nix
+    ./programs/zsh/default.nix
   ];
 }

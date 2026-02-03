@@ -22,18 +22,21 @@ trunk check
 ## Architecture
 
 ```
-flake.nix           # エントリポイント。nixpkgs-unstable + nixpkgs-master を使用
-home.nix            # メイン設定。パッケージ一覧とモジュールimports
-config/             # 機能別モジュール
-  zsh.nix           # シェル設定 (oh-my-zsh, p10k, fzf, zoxide)
-  mise.nix          # ランタイムバージョン管理 (node, python, java, sbt等)
-  git.nix           # Git設定とghq roots
-  nvim.nix          # Neovim (dracula theme)
-  claude.nix        # Claude Code設定 (files/claudeをホームに配置)
-  aws.nix           # AWS CLI + SSM plugin
-  iterm2.nix        # iTerm2 Dynamic Profiles
-shell/              # zshから読み込むスクリプト
-files/claude/       # ~/.claudeに配置されるファイル群
+flake.nix              # エントリポイント。nixpkgs-unstable + nixpkgs-master を使用
+home.nix               # メイン設定。importsのみ
+programs/              # ツール別モジュール (各ディレクトリに default.nix + 関連ファイル)
+  aws/                 # AWS CLI + SSM plugin
+  claude/              # Claude Code設定 + CLAUDE.md, commands, skills, statusline.sh
+  codex/               # Codex + AGENTS.md
+  git/                 # Git設定とghq roots
+  gwq/                 # Git worktree manager (カスタムパッケージ含む)
+  iterm2/              # iTerm2 Dynamic Profiles
+  mise/                # ランタイムバージョン管理 (node, python, java, sbt等)
+  nvim/                # Neovim (dracula theme)
+  packages/            # スタンドアロンパッケージ一覧
+  shogun/              # multi-agent-shogun (activation で自動clone)
+  ssh/                 # SSH設定 (1Password agent)
+  zsh/                 # シェル設定 (oh-my-zsh, starship, fzf, zoxide) + ghq-zsh.sh
 ```
 
 ### nixpkgs-master の使い方
@@ -41,8 +44,8 @@ files/claude/       # ~/.claudeに配置されるファイル群
 最新パッケージが必要な場合は `pkgs-master` を使用:
 
 ```nix
-# home.nix または各config内で
-pkgs-master.claude-code
+# programs/*/default.nix 内で
+pkgs-master.claude-code-bin
 pkgs-master.k9s
 ```
 
