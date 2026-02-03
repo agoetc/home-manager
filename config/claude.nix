@@ -41,6 +41,6 @@ in
 
 
   home.packages = [
-    pkgs-master.claude-code
+    pkgs-master.claude-code-bin
   ];
 }

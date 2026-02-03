@@ -13,9 +13,14 @@
     homeDirectory = "/Users/takegawa";
     stateVersion = "24.05";
 
+    # ~/.local/bin を PATH に追加 (Claude Code native install 等)
+    sessionPath = [ "$HOME/.local/bin" ];
+
     # Last login メッセージを非表示
     file.".hushlogin".text = "";
 
+    # ~/.local/bin ディレクトリを確保
+    file.".local/bin/.keep".text = "";
   };
 
 
