@@ -6,17 +6,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 macOS (aarch64-darwin) 用の Home Manager 設定リポジトリ。Nix Flakes で管理。
 
+# IMPORTANT
+- 全てnixで管理してください。
+- 直接ファイルを編集しないでください。
+- nix flake update && home-manager switchで設定を適用してください。
+- 新しいツールを追加する場合は programs/ 以下にモジュールを作成してください。
+- モジュールを分けるまでもないものは、programs/packages/ にスタンドアロンパッケージとして追加してください。
+- nixpkgs-unstable と nixpkgs-master を使用しています。最新パッケージが必要な場合は pkgs-master を使用してください。
+- flake updateによってエラーが出る場合は、発生したパッケージを旧バージョンに固定してください。
+
 ## Commands
 
 ```sh
 # 設定を適用
 nix flake update && home-manager switch
-
-# フォーマット
-trunk fmt
-
-# Lint
-trunk check
 ```
 
 ## Architecture

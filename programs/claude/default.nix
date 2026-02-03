@@ -22,6 +22,16 @@ let
       type = "command";
       command = "~/.claude/statusline.sh";
     };
+    mcpServers = {
+      memory = {
+        command = "npx";
+        args = [ "-y" "@modelcontextprotocol/server-memory" ];
+      };
+      sequential-thinking = {
+        command = "npx";
+        args = [ "-y" "@modelcontextprotocol/server-sequential-thinking" ];
+      };
+    };
   };
 
 in
