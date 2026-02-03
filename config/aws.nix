@@ -1,8 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-ssm, ... }:
 
 {
-    home.packages = with pkgs; [
-        awscli2
-        ssm-session-manager-plugin
+    home.packages = [
+        pkgs.awscli2
+        # https://github.com/nixos/nixpkgs/issues/486267
+        pkgs-ssm.ssm-session-manager-plugin
     ];
 }

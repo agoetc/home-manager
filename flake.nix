@@ -5,20 +5,25 @@
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
-    grepai.url = "github:yoanbernabeu/grepai";
+    # ssm-session-manager-plugin が壊れているため、動作する直前のリビジョンにピン留め
+    # https://github.com/nixos/nixpkgs/issues/486267
+    nixpkgs-ssm.url = "github:nixos/nixpkgs/5dd77cd60490fd0b23f4bb787150280a241e0e1b";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, nixpkgs-master, home-manager, grepai, ... }:
+  outputs = { nixpkgs, nixpkgs-master, nixpkgs-ssm, home-manager, ... }:
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
       pkgs-master = import nixpkgs-master {
         inherit system;
         config.allowUnfree = true;
+      };
+      pkgs-ssm = import nixpkgs-ssm {
+        inherit system;
       };
     in
     {
@@ -31,17 +36,7 @@
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-        extraSpecialArgs = {
-          inherit pkgs-master;
-          grepai-pkg = pkgs.buildGoModule {
-            pname = "grepai";
-            version = "0.18.0";
-            src = grepai;
-            vendorHash = "sha256-doGLaRDqD2c3MvUGkeBHuQ4rmnoUemqb1IhEwy+7G40=";
-            ldflags = [ "-s" "-w" "-X main.version=0.18.0" ];
-            meta.mainProgram = "grepai";
-          };
-        };
+        extraSpecialArgs = { inherit pkgs-master pkgs-ssm; };
       };
     };
 }
