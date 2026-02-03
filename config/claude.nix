@@ -4,10 +4,8 @@ let
   claudeSettings = {
     "$schema" = "https://json.schemastore.org/claude-code-settings.json";
     enabledPlugins = {
-      "serena@claude-plugins-official" = true;
       "context7@claude-plugins-official" = true;
       "swift-lsp@claude-plugins-official" = true;
-      "Notion@claude-plugins-official" = true;
       "document-skills@anthropic-agent-skills" = true;
     };
     permissions = {
