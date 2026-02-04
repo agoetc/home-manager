@@ -55,6 +55,15 @@
       -- GPU
       config.front_end = "WebGpu"
 
+      -- Mouse Bindings (Cmd+Click to open URLs)
+      config.mouse_bindings = {
+        {
+          event = { Up = { streak = 1, button = "Left" } },
+          mods = "CMD",
+          action = wezterm.action.OpenLinkAtMouseCursor,
+        },
+      }
+
       -- Key Bindings
       config.keys = {
         { mods = "OPT", key = "LeftArrow",  action = wezterm.action.SendKey({ mods = "ALT", key = "b" }) },
