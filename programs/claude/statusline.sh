@@ -7,10 +7,21 @@ DIR=$(echo "$input" | jq -r '.workspace.current_dir // "."')
 # Directory name
 DIR_NAME=$(basename "$DIR")
 
-# Git branch (with dirty marker)
-BRANCH=$(git -C "$DIR" branch --show-current 2>/dev/null)
-if [ -n "$BRANCH" ] && [ -n "$(git -C "$DIR" status --porcelain 2>/dev/null)" ]; then
-  BRANCH="${BRANCH}*"
+# Git branch (with dirty marker, worktree-aware)
+BRANCH=$(git -C "$DIR" rev-parse --abbrev-ref HEAD 2>/dev/null)
+if [ "$BRANCH" = "HEAD" ]; then
+  BRANCH=$(git -C "$DIR" rev-parse --short HEAD 2>/dev/null)
+fi
+if [ -n "$BRANCH" ]; then
+  # Check if in a worktree
+  GIT_DIR=$(git -C "$DIR" rev-parse --git-dir 2>/dev/null)
+  GIT_COMMON_DIR=$(git -C "$DIR" rev-parse --git-common-dir 2>/dev/null)
+  if [ "$GIT_DIR" != "$GIT_COMMON_DIR" ]; then
+    BRANCH="wt:${BRANCH}"
+  fi
+  if [ -n "$(git -C "$DIR" status --porcelain 2>/dev/null)" ]; then
+    BRANCH="${BRANCH}*"
+  fi
 fi
 
 # Context usage color

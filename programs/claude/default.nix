@@ -1,4 +1,4 @@
-{ pkgs-master, ... }:
+{ pkgs-master, pkgs, lib, ... }:
 
 let
   claudeSettings = {
@@ -22,15 +22,17 @@ let
       type = "command";
       command = "~/.claude/statusline.sh";
     };
-    mcpServers = {
-      memory = {
-        command = "npx";
-        args = [ "-y" "@modelcontextprotocol/server-memory" ];
-      };
-      sequential-thinking = {
-        command = "npx";
-        args = [ "-y" "@modelcontextprotocol/server-sequential-thinking" ];
-      };
+  };
+
+  # MCP servers without secrets
+  mcpServers = {
+    memory = {
+      command = "npx";
+      args = [ "-y" "@modelcontextprotocol/server-memory" ];
+    };
+    sequential-thinking = {
+      command = "npx";
+      args = [ "-y" "@modelcontextprotocol/server-sequential-thinking" ];
     };
   };
 
@@ -47,6 +49,29 @@ in
     force = true;
   };
 
+  # MCP servers are stored in ~/.claude.json (user config)
+  # Use jq to merge without destroying runtime state
+  # Notion MCP requires NOTION_TOKEN env var at switch time
+  home.activation.claudeMcpServers = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    CLAUDE_JSON="$HOME/.claude.json"
+    MCP_SERVERS='${builtins.toJSON mcpServers}'
+
+    # Add notion MCP if NOTION_TOKEN is set
+    if [ -n "''${NOTION_TOKEN:-}" ]; then
+      NOTION_HEADERS="{\"Authorization\": \"Bearer $NOTION_TOKEN\", \"Notion-Version\": \"2022-06-28\"}"
+      MCP_SERVERS=$(echo "$MCP_SERVERS" | ${pkgs.jq}/bin/jq \
+        --arg headers "$NOTION_HEADERS" \
+        '. + {notion: {command: "npx", args: ["-y", "@notionhq/notion-mcp-server"], env: {OPENAPI_MCP_HEADERS: $headers}}}')
+    else
+      echo "WARNING: NOTION_TOKEN is not set. Skipping notion MCP server." >&2
+    fi
+
+    if [ -f "$CLAUDE_JSON" ]; then
+      ${pkgs.jq}/bin/jq --argjson servers "$MCP_SERVERS" '.mcpServers = $servers' "$CLAUDE_JSON" > "$CLAUDE_JSON.tmp" && mv "$CLAUDE_JSON.tmp" "$CLAUDE_JSON"
+    else
+      echo '{}' | ${pkgs.jq}/bin/jq --argjson servers "$MCP_SERVERS" '.mcpServers = $servers' > "$CLAUDE_JSON"
+    fi
+  '';
 
   home.packages = [
     pkgs-master.claude-code-bin
