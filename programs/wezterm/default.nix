@@ -10,7 +10,7 @@
 
       -- Font
       config.font = wezterm.font("MesloLGS NF")
-      config.font_size = 13.0
+      config.font_size = 16.0
 
       -- Color Scheme (Dracula to match Neovim)
       config.color_scheme = "Dracula (Official)"
@@ -65,6 +65,11 @@
         { mods = "OPT", key = "Backspace",  action = wezterm.action.SendKey({ mods = "CTRL", key = "w" }) },
         { mods = "CMD", key = "d", action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
         { mods = "CMD|SHIFT", key = "d", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
+        -- Cmd+W: close current pane (closes window only if last pane)
+        { mods = "CMD", key = "w", action = wezterm.action.CloseCurrentPane({ confirm = false }) },
+        -- Cmd+[ / Cmd+]: switch pane
+        { mods = "CMD", key = "[", action = wezterm.action.ActivatePaneDirection("Prev") },
+        { mods = "CMD", key = "]", action = wezterm.action.ActivatePaneDirection("Next") },
       }
 
       return config

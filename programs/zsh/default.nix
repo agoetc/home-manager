@@ -21,7 +21,13 @@
       # nix-profile の補完を読み込む
       fpath+=~/.nix-profile/share/zsh/site-functions
 
-      autoload -Uz compinit && compinit
+      # compinit を1日1回だけ再生成（-C で既存キャッシュを再利用）
+      autoload -Uz compinit
+      if [[ -n ''${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+        compinit
+      else
+        compinit -C
+      fi
 
       # 大文字小文字を無視
       zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -81,10 +87,6 @@
         source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
       fi
 
-      # nix-profile の補完を有効化
-      fpath=(~/.nix-profile/share/zsh/site-functions $fpath)
-      autoload -Uz compinit && compinit
-
       # ============================================
       # キーバインド
       # ============================================
@@ -101,15 +103,8 @@
       # ghq
       source $HOME/.config/home-manager/programs/zsh/ghq-zsh.sh
 
-      # just
-      [ -e "${pkgs.just}/share/zsh/site-functions/_just" ] && \
-        source "${pkgs.just}/share/zsh/site-functions/_just"
-
-      # zoxide
+      # zoxide (--cmd cd で cd を置き換え、遅延なし)
       eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
-
-      # ni (package manager switcher) - nr completion is broken (compadd outside completion context)
-      command -v ni &>/dev/null && eval "$(ni --completion-zsh 2>/dev/null)"
 
       # ============================================
       # zshプラグイン (読み込み順序に注意)
