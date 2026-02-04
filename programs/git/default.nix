@@ -56,6 +56,8 @@ in
         # 現在のブランチをブラウザで開く
         browse = "!gh browse -b $(git branch --show-current)";
         b = "!git browse";
+        # tag作成 + push (例: git tagp v1.6.28)
+        tagp = "!f() { git tag --no-sign \"$1\" && git push origin \"$1\"; }; f";
       };
     };
   };
