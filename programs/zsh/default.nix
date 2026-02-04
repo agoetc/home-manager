@@ -70,6 +70,7 @@
       ll = "eza -la";
       la = "eza -a";
       lt = "eza --tree";
+      clauded = "claude --dangerously-skip-permissions";
     };
 
     initContent = ''
