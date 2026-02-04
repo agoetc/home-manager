@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-master, pkgs-ssm, ... }:
+{ config, pkgs, pkgs-master, pkgs-ssm, lib, ... }:
 
 {
   # アンフリーライセンスのパッケージを許可
@@ -19,6 +19,15 @@
 
     # ~/.local/bin ディレクトリを確保
     file.".local/bin/.keep".text = "";
+  };
+
+  # sops-nix: シークレット管理
+  sops = {
+    age.keyFile = "${config.home.homeDirectory}/Library/Application Support/sops/age/keys.txt";
+    defaultSopsFile = ./secrets.yaml;
+    secrets = {
+      notion_token = { };
+    };
   };
 
   imports = [

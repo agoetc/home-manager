@@ -1,0 +1,7 @@
+keys:
+  - &takegawa age17h37g3l3nvylp87v0h2s7qq56uv2eumvujrk0hqsszkae6n7svvsstfzsw
+creation_rules:
+  - path_regex: secrets\.yaml$
+    key_groups:
+      - age:
+          - *takegawa
