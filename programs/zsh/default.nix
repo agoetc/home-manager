@@ -108,9 +108,8 @@
       # zoxide
       eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 
-      # ni (package manager switcher)
-      command -v ni &>/dev/null && eval "$(ni --completion-zsh)"
-      command -v nr &>/dev/null && eval "$(nr --completion-zsh)"
+      # ni (package manager switcher) - nr completion is broken (compadd outside completion context)
+      command -v ni &>/dev/null && eval "$(ni --completion-zsh 2>/dev/null)"
 
       # ============================================
       # zshプラグイン (読み込み順序に注意)
