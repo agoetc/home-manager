@@ -60,7 +60,7 @@ in
     # Add notion MCP if secret file exists and is non-empty
     if [ -f "$NOTION_SECRET" ] && [ -s "$NOTION_SECRET" ]; then
       NOTION_TOKEN=$(cat "$NOTION_SECRET")
-      NOTION_HEADERS="{\"Authorization\": \"Bearer $NOTION_TOKEN\", \"Notion-Version\": \"2022-06-28\"}"
+      NOTION_HEADERS="{\"Authorization\": \"Bearer $NOTION_TOKEN\", \"Notion-Version\": \"2025-09-03\"}"
       MCP_SERVERS=$(echo "$MCP_SERVERS" | ${pkgs.jq}/bin/jq \
         --arg headers "$NOTION_HEADERS" \
         '. + {notion: {command: "npx", args: ["-y", "@notionhq/notion-mcp-server"], env: {OPENAPI_MCP_HEADERS: $headers}}}')
