@@ -1,6 +1,6 @@
 ## 適用
 ```sh
-nix flake update && home-manager switch
+git add -A && nix flake update && home-manager switch
 ```
 
 ## 事前install
@@ -14,4 +14,18 @@ nix flake update && home-manager switch
 git clone https://github.com/agoetc/home-manager.git
 cd home-manager
 sh copy-to-home.sh
+```
+
+`copy-to-home.sh` が以下を実行する:
+1. リポジトリを `~/.config/home-manager/` にコピー
+2. age 秘密鍵の入力 (`~/Library/Application Support/sops/age/keys.txt` に保存)
+3. `home-manager switch` で設定を適用
+
+## シークレット管理 (sops-nix)
+
+secrets.yaml は age 鍵で暗号化されており、git コミット可能。
+
+```sh
+# シークレットの編集
+nix-shell -p sops --run "sops secrets.yaml"
 ```
