@@ -16,9 +16,14 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Claude Code - 最新版を即座に使うためのローカルflake
+    claude-code = {
+      url = "path:./programs/claude";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, nixpkgs-master, nixpkgs-ssm, home-manager, sops-nix, ... }:
+  outputs = { nixpkgs, nixpkgs-master, nixpkgs-ssm, home-manager, sops-nix, claude-code, ... }:
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -29,6 +34,7 @@
       pkgs-ssm = import nixpkgs-ssm {
         inherit system;
       };
+      claude-code-pkg = claude-code.packages.${system}.default;
     in
     {
       homeConfigurations."takegawa" = home-manager.lib.homeManagerConfiguration {
@@ -41,7 +47,7 @@
           sops-nix.homeManagerModules.sops
         ];
 
-        extraSpecialArgs = { inherit pkgs-master pkgs-ssm; };
+        extraSpecialArgs = { inherit pkgs-master pkgs-ssm claude-code-pkg; };
       };
     };
 }

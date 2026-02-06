@@ -1,4 +1,4 @@
-{ pkgs-master, pkgs, lib, config, ... }:
+{ claude-code-pkg, pkgs, lib, config, ... }:
 
 let
   claudeSettings = {
@@ -76,6 +76,6 @@ in
   '';
 
   home.packages = [
-    pkgs-master.claude-code-bin
+    claude-code-pkg
   ];
 }
