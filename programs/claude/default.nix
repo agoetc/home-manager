@@ -75,6 +75,10 @@ in
     fi
   '';
 
+  home.sessionVariables = {
+    CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1";
+  };
+
   home.packages = [
     claude-code-pkg
   ];
