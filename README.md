@@ -1,6 +1,6 @@
 ## 適用
 ```sh
-git add -A && nix flake update && home-manager switch
+nix flake update && git add -A && home-manager switch
 ```
 
 ## 事前install

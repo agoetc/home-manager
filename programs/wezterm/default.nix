@@ -66,6 +66,8 @@
 
       -- Key Bindings
       config.keys = {
+        -- Shift+Enter: send CSI u encoded sequence (for Claude Code newline etc.)
+        { mods = "SHIFT", key = "Enter", action = wezterm.action.SendString("\x1b[13;2u") },
         { mods = "OPT", key = "LeftArrow",  action = wezterm.action.SendKey({ mods = "ALT", key = "b" }) },
         { mods = "OPT", key = "RightArrow", action = wezterm.action.SendKey({ mods = "ALT", key = "f" }) },
         { mods = "CMD", key = "LeftArrow",  action = wezterm.action.SendKey({ mods = "CTRL", key = "a" }) },
