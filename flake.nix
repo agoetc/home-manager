@@ -21,9 +21,14 @@
       url = "path:./programs/claude";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Codex - 最新版を即座に使うためのローカルflake
+    codex = {
+      url = "path:./programs/codex";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, nixpkgs-master, nixpkgs-ssm, home-manager, sops-nix, claude-code, ... }:
+  outputs = { nixpkgs, nixpkgs-master, nixpkgs-ssm, home-manager, sops-nix, claude-code, codex, ... }:
     let
       system = "aarch64-darwin";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -35,6 +40,7 @@
         inherit system;
       };
       claude-code-pkg = claude-code.packages.${system}.default;
+      codex-pkg = codex.packages.${system}.default;
     in
     {
       homeConfigurations."takegawa" = home-manager.lib.homeManagerConfiguration {
@@ -47,7 +53,7 @@
           sops-nix.homeManagerModules.sops
         ];
 
-        extraSpecialArgs = { inherit pkgs-master pkgs-ssm claude-code-pkg; };
+        extraSpecialArgs = { inherit pkgs-master pkgs-ssm claude-code-pkg codex-pkg; };
       };
     };
 }

@@ -16,6 +16,22 @@
       },
       "parent": []
     },
+    "codex": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "path": "./programs/codex",
+        "type": "path"
+      },
+      "original": {
+        "path": "./programs/codex",
+        "type": "path"
+      },
+      "parent": []
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -54,11 +70,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1770345547,
-        "narHash": "sha256-vqN+H6Vf9cqK/pjxCyiAUCgy7Ft4viGTzB6rXDI9dgU=",
+        "lastModified": 1770348683,
+        "narHash": "sha256-GepZmsfQRIeD+CX3x0uE/uVZ0K9XQ3ZBC6q5UPOWE1g=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "ecfe7c0e570a067b3b14906f0139d38e60f5c55a",
+        "rev": "565e4d68bd3e0b2a41e64453d50d38010c7d9da0",
         "type": "github"
       },
       "original": {
@@ -87,6 +103,7 @@
     "root": {
       "inputs": {
         "claude-code": "claude-code",
+        "codex": "codex",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-master": "nixpkgs-master",

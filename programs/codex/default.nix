@@ -1,4 +1,4 @@
-{ pkgs-master, ... }:
+{ codex-pkg, ... }:
 
 {
   home.file.".codex/AGENTS.md" = {
@@ -7,6 +7,6 @@
   };
 
   home.packages = [
-    pkgs-master.codex
+    codex-pkg
   ];
 }
