@@ -42,6 +42,7 @@
     ./programs/packages/default.nix
     ./programs/shogun/default.nix
     ./programs/ssh/default.nix
+    ./programs/tmux/default.nix
     ./programs/wezterm/default.nix
     ./programs/zsh/default.nix
   ];

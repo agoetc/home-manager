@@ -13,8 +13,7 @@
     stripe-cli
     xlsx2csv
     kubectl
-    tmux
-    pkgs-master.k9s
+pkgs-master.k9s
     # CLI tools
     ripgrep
     fd
