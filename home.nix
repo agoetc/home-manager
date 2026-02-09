@@ -41,7 +41,6 @@
     ./programs/mise/default.nix
     ./programs/nvim/default.nix
     ./programs/packages/default.nix
-    ./programs/shogun/default.nix
     ./programs/ssh/default.nix
     ./programs/tmux/default.nix
     ./programs/wezterm/default.nix

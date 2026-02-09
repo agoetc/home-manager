@@ -43,7 +43,6 @@ programs/              # ツール別モジュール (各ディレクトリに d
   mise/                # ランタイムバージョン管理 (node, python, java, sbt等)
   nvim/                # Neovim (dracula theme)
   packages/            # スタンドアロンパッケージ一覧
-  shogun/              # multi-agent-shogun (activation で自動clone)
   ssh/                 # SSH設定 (1Password agent)
   zsh/                 # シェル設定 (oh-my-zsh, starship, fzf, zoxide) + ghq-zsh.sh
 ```
