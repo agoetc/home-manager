@@ -34,6 +34,7 @@
     ./programs/aws/default.nix
     ./programs/claude/default.nix
     ./programs/codex/default.nix
+    ./programs/ghostty/default.nix
     ./programs/git/default.nix
     ./programs/gwq/default.nix
     ./programs/iterm2/default.nix
