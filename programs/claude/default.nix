@@ -68,6 +68,12 @@ in
       echo "WARNING: notion_token secret is empty. Skipping notion MCP server." >&2
     fi
 
+    # Merge local MCP servers (not managed by home-manager)
+    LOCAL_MCP="$HOME/.claude/local-mcp-servers.json"
+    if [ -f "$LOCAL_MCP" ]; then
+      MCP_SERVERS=$(echo "$MCP_SERVERS" | ${pkgs.jq}/bin/jq --slurpfile local "$LOCAL_MCP" '. + $local[0]')
+    fi
+
     if [ -f "$CLAUDE_JSON" ]; then
       ${pkgs.jq}/bin/jq --argjson servers "$MCP_SERVERS" '.mcpServers = $servers' "$CLAUDE_JSON" > "$CLAUDE_JSON.tmp" && mv "$CLAUDE_JSON.tmp" "$CLAUDE_JSON"
     else
