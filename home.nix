@@ -39,6 +39,7 @@
     ./programs/gwq/default.nix
     ./programs/iterm2/default.nix
     ./programs/mise/default.nix
+    ./programs/multi-agent-shogun/default.nix
     ./programs/nvim/default.nix
     ./programs/packages/default.nix
     ./programs/ssh/default.nix

@@ -82,7 +82,7 @@ in
   '';
 
   home.sessionVariables = {
-    CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1";
+    CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "0";
   };
 
   home.packages = [
