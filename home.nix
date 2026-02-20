@@ -14,6 +14,11 @@
     # ~/.local/bin を PATH に追加 (Claude Code native install 等)
     sessionPath = [ "$HOME/.local/bin" ];
 
+    # Playwright ブラウザパス
+    sessionVariables = {
+      PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
+    };
+
     # Last login メッセージを非表示
     file.".hushlogin".text = "";
 
