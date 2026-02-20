@@ -9,7 +9,7 @@ macOS (aarch64-darwin) 用の Home Manager 設定リポジトリ。Nix Flakes �
 # IMPORTANT
 - 全てnixで管理してください。
 - 直接ファイルを編集しないでください。
-- git add -A && nix flake update && home-manager switchで設定を適用してください。
+- nix flake update && git add -A && home-manager switchで設定を適用してください。
 - 新しいツールを追加する場合は programs/ 以下にモジュールを作成してください。
 - モジュールを分けるまでもないものは、programs/packages/ にスタンドアロンパッケージとして追加してください。
 - nixpkgs-unstable と nixpkgs-master を使用しています。最新パッケージが必要な場合は pkgs-master を使用してください。
@@ -20,7 +20,7 @@ macOS (aarch64-darwin) 用の Home Manager 設定リポジトリ。Nix Flakes �
 
 ```sh
 # 設定を適用
-git add -A && nix flake update && home-manager switch
+nix flake update && git add -A && home-manager switch
 
 # シークレットの編集 (sops が自動で復号→編集→暗号化)
 nix-shell -p sops --run "sops secrets.yaml"

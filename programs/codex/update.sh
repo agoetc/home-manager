@@ -37,4 +37,4 @@ EOF
 echo "Updated to $VERSION!"
 echo ""
 echo "Don't forget to run:"
-echo "  git add -A && nix flake update && home-manager switch"
+echo "  nix flake update && git add -A && home-manager switch"

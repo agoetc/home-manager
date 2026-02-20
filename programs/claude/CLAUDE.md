@@ -3,8 +3,6 @@
 タスクは超細分化しステップバイステップで進めること
 細分化されたタスクはTeamで行うこと
 
-IMPORTANT: Teamを利用する際は、必ず `/use-team` スキルを発動する
-IMPORTANT: コードを書く・修正する際は、必ず `/coding` スキルを発動する
 
 # Available CLI Tools
 以下のツールを積極的に活用すること：
