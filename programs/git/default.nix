@@ -21,6 +21,7 @@ in
       ".idea"
       ".vscode"
       ".claude/settings.local.json"
+      ".claude/worktrees/"
       "tsconfig.tsbuildinfo"
       ".DS_Store"
     ];
