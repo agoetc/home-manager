@@ -10,7 +10,7 @@
 }:
 
 let
-  version = "3.4";
+  version = "3.5";
   python = python3.withPackages (ps: [ ps.pyyaml ]);
 
   runtimeDeps = lib.makeBinPath [
@@ -29,7 +29,7 @@ stdenvNoCC.mkDerivation {
     owner = "yohey-w";
     repo = "multi-agent-shogun";
     rev = "v${version}";
-    hash = "sha256-xO6mNxxbUHiQPHWshfZ0qK3DVV4hDATTLRNbz6j4R+U=";
+    hash = "sha256-DF4zhtrh8E18KfiDLns6/mVblWDu310SMiQtl/kiMVQ=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
