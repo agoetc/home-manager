@@ -14,9 +14,9 @@
     # ~/.local/bin を PATH に追加 (Claude Code native install 等)
     sessionPath = [ "$HOME/.local/bin" ];
 
-    # Playwright ブラウザパス
+    # Playwright ブラウザパス（書き込み可能な場所に配置し、npx playwright install で自動同期）
     sessionVariables = {
-      PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
+      PLAYWRIGHT_BROWSERS_PATH = "${config.home.homeDirectory}/.cache/ms-playwright";
     };
 
     # Last login メッセージを非表示

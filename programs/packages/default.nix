@@ -23,7 +23,6 @@ pkgs-master.k9s
     lazygit
     lazydocker
     ollama
-    playwright-driver.browsers
     ffmpeg
   ];
 }
