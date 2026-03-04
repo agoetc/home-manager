@@ -11,6 +11,7 @@
     uv
     socat
     stripe-cli
+    _1password-cli
     xlsx2csv
     kubectl
 pkgs-master.k9s
