@@ -18,6 +18,7 @@ let
       ];
     };
     alwaysThinkingEnabled = true;
+    skipDangerousModePermissionPrompt = true;
     statusLine = {
       type = "command";
       command = "~/.claude/statusline.sh";
