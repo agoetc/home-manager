@@ -1,0 +1,16 @@
+interface:
+  display_name: "Notion Search"
+  short_description: "PREFIX-123 の仕様・タスクを Notion で直接取得"
+  default_prompt: "Use $notion-search to retrieve the Notion spec or task for a PREFIX-123 ID by querying unique_id directly without title search."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "notion"
+      description: "Notion MCP server"
+    - type: "mcp"
+      value: "memory"
+      description: "Memory MCP server for datasource cache"
+
+policy:
+  allow_implicit_invocation: true

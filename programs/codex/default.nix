@@ -25,6 +25,11 @@ in
     source = ./AGENTS.md;
     force = true;
   };
+  home.file.".codex/skills" = {
+    source = ./skills;
+    recursive = true;
+    force = true;
+  };
   home.file.".codex/commands/review.md" = {
     source = ../claude/commands/review-user.md;
     force = true;
