@@ -13,7 +13,9 @@
     stripe-cli
     _1password-cli
     xlsx2csv
-    google-cloud-sdk
+    (google-cloud-sdk.withExtraComponents [
+      google-cloud-sdk.components.gke-gcloud-auth-plugin
+    ])
     kubectl
 pkgs-master.k9s
     # CLI tools

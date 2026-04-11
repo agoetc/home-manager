@@ -7,6 +7,7 @@ let
       "context7@claude-plugins-official" = true;
       "swift-lsp@claude-plugins-official" = true;
       "document-skills@anthropic-agent-skills" = true;
+      "codex@openai-codex" = true;
     };
     permissions = {
       allow = [
@@ -80,6 +81,42 @@ in
     else
       echo '{}' | ${pkgs.jq}/bin/jq --argjson servers "$MCP_SERVERS" '.mcpServers = $servers' > "$CLAUDE_JSON"
     fi
+  '';
+
+  # Register plugin marketplaces and install plugins declaratively
+  home.activation.claudePlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    PLUGINS_DIR="$HOME/.claude/plugins"
+    KNOWN="$PLUGINS_DIR/known_marketplaces.json"
+    INSTALLED="$PLUGINS_DIR/installed_plugins.json"
+
+    mkdir -p "$PLUGINS_DIR"
+
+    # --- Marketplace registration ---
+    MARKETPLACES='${builtins.toJSON {
+      "openai-codex" = {
+        source = { source = "github"; repo = "openai/codex-plugin-cc"; };
+      };
+    }}'
+
+    if [ -f "$KNOWN" ]; then
+      # Merge new marketplaces (won't overwrite existing entries)
+      echo "$MARKETPLACES" | ${pkgs.jq}/bin/jq -s '.[1] as $new | .[0] | . * ($new | with_entries(select(.key as $k | (.[0] | keys | index($k)) | not)))' "$KNOWN" - > "$KNOWN.tmp" && mv "$KNOWN.tmp" "$KNOWN"
+    else
+      echo "$MARKETPLACES" | ${pkgs.jq}/bin/jq '.' > "$KNOWN"
+    fi
+
+    # --- Plugin installation via CLI ---
+    # Only install if not already in installed_plugins.json
+    install_plugin() {
+      local plugin_id="$1"
+      if [ -f "$INSTALLED" ] && ${pkgs.jq}/bin/jq -e --arg p "$plugin_id" '.plugins[$p]' "$INSTALLED" > /dev/null 2>&1; then
+        return 0
+      fi
+      echo "Installing Claude plugin: $plugin_id"
+      claude plugin install "$plugin_id" 2>/dev/null || true
+    }
+
+    install_plugin "codex@openai-codex"
   '';
 
   home.sessionVariables = {

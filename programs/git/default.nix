@@ -43,6 +43,9 @@ in
           "~/.config"
         ];
       };
+      init = {
+        defaultBranch = "main";
+      };
       alias = {
         # merge済みブランチを削除（worktreeでチェックアウト中のブランチ(+)も除外）
         cleanup = "!git branch --merged | grep -v '\\*\\|+\\|main\\|master\\|develop' | xargs -n 1 git branch -d";
