@@ -3,6 +3,7 @@
 let
   claudeSettings = {
     "$schema" = "https://json.schemastore.org/claude-code-settings.json";
+    model = "claude-opus-4-7[1m]";
     enabledPlugins = {
       "context7@claude-plugins-official" = true;
       "swift-lsp@claude-plugins-official" = true;
