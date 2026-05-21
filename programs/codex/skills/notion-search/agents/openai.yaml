@@ -5,9 +5,9 @@ interface:
 
 dependencies:
   tools:
-    - type: "mcp"
-      value: "notion"
-      description: "Notion MCP server"
+    - type: "cli"
+      value: "ntn"
+      description: "Notion 公式 CLI (mise: npm:ntn)"
     - type: "mcp"
       value: "memory"
       description: "Memory MCP server for datasource cache"

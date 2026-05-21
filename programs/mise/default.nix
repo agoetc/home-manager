@@ -14,7 +14,9 @@
         terraform = "1.7.0";
         java = "temurin-25.0.0+36.0.LTS";
         "scala-cli" = "latest";
-        "npm:@antfu/ni" = "latest";
+        "github:endevco/aube" = "latest";
+        # Notion CLI (公式 ntn) - coding agent から bash 経由で叩く用
+        "npm:ntn" = "latest";
       };
       settings = {
         # プロジェクトごとの.python-version, .node-versionなどを有効化

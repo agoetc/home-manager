@@ -31,9 +31,17 @@
   outputs = { nixpkgs, nixpkgs-master, nixpkgs-ssm, home-manager, sops-nix, claude-code, codex, ... }:
     let
       system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
+      # direnv 2.37.1 の checkPhase (test-bash/test-zsh) が darwin でハングするため無効化
+      overlays = [
+        (final: prev: {
+          direnv = prev.direnv.overrideAttrs (_: { doCheck = false; });
+        })
+      ];
+      pkgs = import nixpkgs {
+        inherit system overlays;
+      };
       pkgs-master = import nixpkgs-master {
-        inherit system;
+        inherit system overlays;
         config.allowUnfree = true;
       };
       pkgs-ssm = import nixpkgs-ssm {
