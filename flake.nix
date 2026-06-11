@@ -12,6 +12,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # nix-darwin: システム領域 (/Library 等) を宣言的に管理。BlackHole 等の HAL ドライバ用
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,7 +33,7 @@
     };
   };
 
-  outputs = { nixpkgs, nixpkgs-master, nixpkgs-ssm, home-manager, sops-nix, claude-code, codex, ... }:
+  outputs = { nixpkgs, nixpkgs-master, nixpkgs-ssm, home-manager, nix-darwin, sops-nix, claude-code, codex, ... }:
     let
       system = "aarch64-darwin";
       # direnv 2.37.1 の checkPhase (test-bash/test-zsh) が darwin でハングするため無効化
@@ -62,6 +67,15 @@
         ];
 
         extraSpecialArgs = { inherit pkgs-master pkgs-ssm claude-code-pkg codex-pkg; };
+      };
+
+      # nix-darwin: システム領域専用の最小構成 (home-manager standalone とは並存)
+      # 適用: sudo darwin-rebuild switch --flake .#takegawanoMacBook-Pro
+      darwinConfigurations."takegawanoMacBook-Pro" = nix-darwin.lib.darwinSystem {
+        modules = [
+          { nixpkgs.pkgs = pkgs; }
+          ./darwin.nix
+        ];
       };
     };
 }
