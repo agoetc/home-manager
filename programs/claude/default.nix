@@ -3,7 +3,6 @@
 let
   claudeSettings = {
     "$schema" = "https://json.schemastore.org/claude-code-settings.json";
-    model = "claude-opus-4-7[1m]";
     enabledPlugins = {
       "context7@claude-plugins-official" = true;
       "swift-lsp@claude-plugins-official" = true;
@@ -19,7 +18,8 @@ let
         "Bash(mc *)"
       ];
     };
-    alwaysThinkingEnabled = true;
+    # alwaysThinkingEnabled は runtime トグル (/thinking 等) なので宣言しない。
+    # model / effortLevel も同様に runtime 所有とし、ここでは宣言しない。
     skipDangerousModePermissionPrompt = true;
     statusLine = {
       type = "command";
@@ -47,10 +47,22 @@ in
     force = true;
   };
 
-  home.file.".claude/settings.json" = {
-    text = builtins.toJSON claudeSettings;
-    force = true;
-  };
+  # Write settings.json as a regular writable file (not a Nix store symlink)
+  # so that Claude Code runtime commands like /effort and /model can modify it.
+  home.activation.claudeSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    SETTINGS_FILE="$HOME/.claude/settings.json"
+    SETTINGS_JSON='${builtins.toJSON claudeSettings}'
+
+    mkdir -p "$HOME/.claude"
+    # Preserve any runtime-added keys (e.g. model, effortLevel) by merging
+    if [ -f "$SETTINGS_FILE" ] && [ ! -L "$SETTINGS_FILE" ]; then
+      ${pkgs.jq}/bin/jq -s '.[0] * .[1]' "$SETTINGS_FILE" - <<< "$SETTINGS_JSON" > "$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
+    else
+      # Remove symlink if present, then write fresh
+      rm -f "$SETTINGS_FILE"
+      echo "$SETTINGS_JSON" | ${pkgs.jq}/bin/jq '.' > "$SETTINGS_FILE"
+    fi
+  '';
 
   # MCP servers are stored in ~/.claude.json (user config)
   # Use jq to merge without destroying runtime state
@@ -121,7 +133,7 @@ in
   '';
 
   home.sessionVariables = {
-    CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "0";
+    CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1";
   };
 
   home.packages = [
