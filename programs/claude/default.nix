@@ -8,6 +8,10 @@ let
       "swift-lsp@claude-plugins-official" = true;
       "document-skills@anthropic-agent-skills" = true;
       "codex@openai-codex" = true;
+      "superpowers@superpowers-marketplace" = true;
+      "elements-of-style@superpowers-marketplace" = true;
+      "superpowers-developing-for-claude-code@superpowers-marketplace" = true;
+      "private-journal-mcp@superpowers-marketplace" = true;
     };
     permissions = {
       allow = [
@@ -104,19 +108,22 @@ in
 
     mkdir -p "$PLUGINS_DIR"
 
-    # --- Marketplace registration ---
-    MARKETPLACES='${builtins.toJSON {
-      "openai-codex" = {
-        source = { source = "github"; repo = "openai/codex-plugin-cc"; };
-      };
-    }}'
+    # --- Marketplace registration via CLI ---
+    # `claude plugin marketplace add` clones the repo and populates the
+    # installLocation/lastUpdated fields Claude's schema requires. Hand-writing
+    # known_marketplaces.json yields incomplete entries that Claude rejects as
+    # "corrupted", so registration MUST go through the CLI.
+    register_marketplace() {
+      local mp_name="$1" mp_repo="$2"
+      if [ -f "$KNOWN" ] && ${pkgs.jq}/bin/jq -e --arg m "$mp_name" '.[$m].installLocation' "$KNOWN" > /dev/null 2>&1; then
+        return 0
+      fi
+      echo "Adding Claude marketplace: $mp_name ($mp_repo)"
+      claude plugin marketplace add "$mp_repo" 2>/dev/null || true
+    }
 
-    if [ -f "$KNOWN" ]; then
-      # Merge new marketplaces (won't overwrite existing entries)
-      echo "$MARKETPLACES" | ${pkgs.jq}/bin/jq -s '.[1] as $new | .[0] | . * ($new | with_entries(select(.key as $k | (.[0] | keys | index($k)) | not)))' "$KNOWN" - > "$KNOWN.tmp" && mv "$KNOWN.tmp" "$KNOWN"
-    else
-      echo "$MARKETPLACES" | ${pkgs.jq}/bin/jq '.' > "$KNOWN"
-    fi
+    register_marketplace "openai-codex" "openai/codex-plugin-cc"
+    register_marketplace "superpowers-marketplace" "obra/superpowers-marketplace"
 
     # --- Plugin installation via CLI ---
     # Only install if not already in installed_plugins.json
@@ -130,6 +137,10 @@ in
     }
 
     install_plugin "codex@openai-codex"
+    install_plugin "superpowers@superpowers-marketplace"
+    install_plugin "elements-of-style@superpowers-marketplace"
+    install_plugin "superpowers-developing-for-claude-code@superpowers-marketplace"
+    install_plugin "private-journal-mcp@superpowers-marketplace"
   '';
 
   home.sessionVariables = {
