@@ -20,6 +20,14 @@ let
     };
     # alwaysThinkingEnabled は runtime トグル (/thinking 等) なので宣言しない。
     # model / effortLevel も同様に runtime 所有とし、ここでは宣言しない。
+    # Opus 4.6 を /model ピッカーに追加。標準 Anthropic API では availableModels は
+    # 制限(allowlist)でありモデル追加はできないため、公式の追加手段である
+    # ANTHROPIC_CUSTOM_MODEL_OPTION を使う (ピッカー最下部に1件追加)。
+    env = {
+      ANTHROPIC_CUSTOM_MODEL_OPTION = "claude-opus-4-6";
+      ANTHROPIC_CUSTOM_MODEL_OPTION_NAME = "Opus 4.6";
+      ANTHROPIC_CUSTOM_MODEL_OPTION_DESCRIPTION = "Opus 4.6 (legacy; agentic coding 用)";
+    };
     skipDangerousModePermissionPrompt = true;
     statusLine = {
       type = "command";
