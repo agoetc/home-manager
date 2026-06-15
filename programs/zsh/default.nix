@@ -123,10 +123,18 @@
       # 3. autosuggestions
       source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+      # ZLEプラグインのメモリ膨張ガード(巨大ペースト等でのOOM対策)
+      # syntax-highlighting は512字超のバッファを再ハイライトしない
+      ZSH_HIGHLIGHT_MAXLENGTH=512
+      # autosuggestions は大きなバッファでは候補検索しない
+      ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+
       # ============================================
-      # iTerm2 Shell Integration
+      # iTerm2 Shell Integration (iTerm2使用時のみ。Ghostty/WezTerm時は統合の二重ロードを避ける)
       # ============================================
-      test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"
+      if [[ "$TERM_PROGRAM" == "iTerm.app" ]]; then
+        test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh"
+      fi
 
     '';
   };

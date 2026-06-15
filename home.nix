@@ -43,6 +43,7 @@
     ./programs/git/default.nix
     ./programs/gwq/default.nix
     ./programs/iterm2/default.nix
+    ./programs/mem-watchdog/default.nix
     ./programs/mise/default.nix
     ./programs/multi-agent-shogun/default.nix
     ./programs/nvim/default.nix
