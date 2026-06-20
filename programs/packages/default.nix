@@ -56,5 +56,6 @@ pkgs-master.k9s
     lazydocker
     ollama
     ffmpeg
+    turso-cli
   ];
 }
