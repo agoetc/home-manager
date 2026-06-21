@@ -41,6 +41,14 @@ let
       command = "npx";
       args = [ "-y" "@modelcontextprotocol/server-sequential-thinking" ];
     };
+    # headroom: コンテキスト圧縮 MCP (compress/retrieve/stats)。
+    # バイナリは mise の pipx:headroom-ai 経由で PATH に入る。
+    headroom = {
+      type = "stdio";
+      command = "headroom";
+      args = [ "mcp" "serve" ];
+      env = { };
+    };
   };
 
 in
