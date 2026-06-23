@@ -29,6 +29,20 @@ let
       type = "command";
       command = "~/.claude/statusline.sh";
     };
+    # Stop hook: ツール呼び出しがテキストに化けて未実行のまま終了した事故を検知し、
+    # block して呼び直させる。スクリプトは hooks/ 配下 (再帰 symlink で ~/.claude/hooks/)。
+    hooks = {
+      Stop = [
+        {
+          hooks = [
+            {
+              type = "command";
+              command = "bash ~/.claude/hooks/detect-leaked-toolcall.sh";
+            }
+          ];
+        }
+      ];
+    };
   };
 
   # MCP servers without secrets
