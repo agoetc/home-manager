@@ -8,10 +8,6 @@ let
       "swift-lsp@claude-plugins-official" = true;
       "document-skills@anthropic-agent-skills" = true;
       "codex@openai-codex" = true;
-      "superpowers@superpowers-marketplace" = true;
-      "elements-of-style@superpowers-marketplace" = true;
-      "superpowers-developing-for-claude-code@superpowers-marketplace" = true;
-      "private-journal-mcp@superpowers-marketplace" = true;
     };
     permissions = {
       allow = [
@@ -65,6 +61,19 @@ let
     };
   };
 
+  # activation script は最小 PATH で走り新世代の claude が PATH に無い場合があるため、
+  # plugin CLI は必ず絶対パスで呼ぶ (bare `claude` だと || true で握り潰され撤去が無言で失敗する)。
+  claudeBin = "${claude-code-pkg}/bin/claude";
+
+  # superpowers-marketplace から撤去するプラグイン群。
+  # enabledPlugins からの削除と plugins/ 実体の uninstall に使う。
+  removedPlugins = [
+    "superpowers@superpowers-marketplace"
+    "elements-of-style@superpowers-marketplace"
+    "superpowers-developing-for-claude-code@superpowers-marketplace"
+    "private-journal-mcp@superpowers-marketplace"
+  ];
+
 in
 {
   home.file.".claude" = {
@@ -88,6 +97,13 @@ in
       rm -f "$SETTINGS_FILE"
       echo "$SETTINGS_JSON" | ${pkgs.jq}/bin/jq '.' > "$SETTINGS_FILE"
     fi
+
+    # 撤去プラグインの enabledPlugins キーを削除。deep merge (.[0] * .[1]) では
+    # 旧キーが温存され消えないため、明示的に delpaths する (存在しなければ no-op)。
+    REMOVED_PLUGINS='${builtins.toJSON removedPlugins}'
+    ${pkgs.jq}/bin/jq --argjson rm "$REMOVED_PLUGINS" \
+      'delpaths([$rm[] | ["enabledPlugins", .]])' \
+      "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
   '';
 
   # MCP servers are stored in ~/.claude.json (user config)
@@ -123,7 +139,7 @@ in
   '';
 
   # Register plugin marketplaces and install plugins declaratively
-  home.activation.claudePlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.claudePlugins = lib.hm.dag.entryAfter [ "writeBoundary" "claudeSettings" ] ''
     PLUGINS_DIR="$HOME/.claude/plugins"
     KNOWN="$PLUGINS_DIR/known_marketplaces.json"
     INSTALLED="$PLUGINS_DIR/installed_plugins.json"
@@ -141,11 +157,10 @@ in
         return 0
       fi
       echo "Adding Claude marketplace: $mp_name ($mp_repo)"
-      claude plugin marketplace add "$mp_repo" 2>/dev/null || true
+      ${claudeBin} plugin marketplace add "$mp_repo" 2>/dev/null || true
     }
 
     register_marketplace "openai-codex" "openai/codex-plugin-cc"
-    register_marketplace "superpowers-marketplace" "obra/superpowers-marketplace"
 
     # --- Plugin installation via CLI ---
     # Only install if not already in installed_plugins.json
@@ -155,14 +170,31 @@ in
         return 0
       fi
       echo "Installing Claude plugin: $plugin_id"
-      claude plugin install "$plugin_id" 2>/dev/null || true
+      ${claudeBin} plugin install "$plugin_id" 2>/dev/null || true
     }
 
     install_plugin "codex@openai-codex"
-    install_plugin "superpowers@superpowers-marketplace"
-    install_plugin "elements-of-style@superpowers-marketplace"
-    install_plugin "superpowers-developing-for-claude-code@superpowers-marketplace"
-    install_plugin "private-journal-mcp@superpowers-marketplace"
+
+    # --- superpowers-marketplace 撤去 (install/merge は撤去を扱わないため明示) ---
+    # plugins/ 実体を uninstall。enabledPlugins キー削除は claudeSettings 側で実施。
+    uninstall_plugin() {
+      local plugin_id="$1"
+      if [ -f "$INSTALLED" ] && ${pkgs.jq}/bin/jq -e --arg p "$plugin_id" '.plugins[$p]' "$INSTALLED" > /dev/null 2>&1; then
+        echo "Uninstalling Claude plugin: $plugin_id"
+        ${claudeBin} plugin uninstall "$plugin_id" 2>/dev/null || true
+      fi
+    }
+
+    uninstall_plugin "superpowers@superpowers-marketplace"
+    uninstall_plugin "elements-of-style@superpowers-marketplace"
+    uninstall_plugin "superpowers-developing-for-claude-code@superpowers-marketplace"
+    uninstall_plugin "private-journal-mcp@superpowers-marketplace"
+
+    # マーケットプレイス登録解除 (登録が残っている場合のみ)
+    if [ -f "$KNOWN" ] && ${pkgs.jq}/bin/jq -e '."superpowers-marketplace".installLocation' "$KNOWN" > /dev/null 2>&1; then
+      echo "Removing Claude marketplace: superpowers-marketplace"
+      ${claudeBin} plugin marketplace remove superpowers-marketplace 2>/dev/null || true
+    fi
   '';
 
   home.sessionVariables = {
