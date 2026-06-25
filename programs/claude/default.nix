@@ -51,14 +51,6 @@ let
       command = "npx";
       args = [ "-y" "@modelcontextprotocol/server-sequential-thinking" ];
     };
-    # headroom: コンテキスト圧縮 MCP (compress/retrieve/stats)。
-    # バイナリは mise の pipx:headroom-ai 経由で PATH に入る。
-    headroom = {
-      type = "stdio";
-      command = "headroom";
-      args = [ "mcp" "serve" ];
-      env = { };
-    };
   };
 
   # activation script は最小 PATH で走り新世代の claude が PATH に無い場合があるため、
@@ -104,6 +96,21 @@ in
     ${pkgs.jq}/bin/jq --argjson rm "$REMOVED_PLUGINS" \
       'delpaths([$rm[] | ["enabledPlugins", .]])' \
       "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
+
+    # RTK (Rust Token Killer) 撤去: headroom wrap 経由で rtk init が settings.json へ
+    # 直書きした PreToolUse(Bash) フックを削除。deep merge (.[0] * .[1]) は runtime キーを
+    # 温存するため明示削除が必要 (Stop hook 等 rtk 以外は残す)。
+    ${pkgs.jq}/bin/jq '
+      if (.hooks.PreToolUse?) then
+        .hooks.PreToolUse |= map(select(
+          [.hooks[]?.command // ""] | any(test("rtk")) | not
+        ))
+      else . end
+      | if ((.hooks.PreToolUse? | length) == 0) then del(.hooks.PreToolUse) else . end
+    ' "$SETTINGS_FILE" > "$SETTINGS_FILE.tmp" && mv "$SETTINGS_FILE.tmp" "$SETTINGS_FILE"
+
+    # rtk 生成物 (nix 管理外) を除去
+    rm -f "$HOME/.claude/RTK.md" "$HOME/.claude/hooks/rtk-rewrite.sh"
   '';
 
   # MCP servers are stored in ~/.claude.json (user config)

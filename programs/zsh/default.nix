@@ -76,7 +76,7 @@
       ll = "eza -la";
       la = "eza -a";
       lt = "eza --tree";
-      clauded = "headroom wrap claude -- --dangerously-skip-permissions";
+      clauded = "claude --dangerously-skip-permissions";
       # Home-Manager Switch: ローカルflake更新 → git add → flake update → switch
       hms = "~/.config/home-manager/programs/claude/update.sh && ~/.config/home-manager/programs/codex/update.sh && cd ~/.config/home-manager && git add -A && nix flake update && home-manager switch";
     };

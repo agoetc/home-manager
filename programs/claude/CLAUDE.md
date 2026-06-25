@@ -25,9 +25,3 @@
 - `mc`: MinIO Client。S3互換ストレージ操作
 - `scala-cli`: Scalaの簡単な挙動確認に使うこと。`--server=false`オプション必須
 - `gwq`: Git worktree管理。並列AI開発時に複数ブランチを同時作業
-
-<!-- rtk (Rust Token Killer): headroom wrap 経由起動時に rtk の PreToolUse hook が
-     Bash をトークン圧縮する。rtk init はこの参照を自動追記しようとするが、当ファイルは
-     nix store への read-only symlink なので書けず失敗していた。参照を nix 側に置くことで
-     rtk が「最新」判定し書き込みをスキップ → settings.json への hook 登録まで到達する。 -->
-@RTK.md
