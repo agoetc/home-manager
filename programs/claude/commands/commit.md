@@ -55,6 +55,10 @@ git commit -m "type: description"
 | `test:` | テスト |
 | `chore:` | その他（ビルド、CI等） |
 
+## リポジトリ規約を優先
+- リポジトリに `doc/commit-guideline.md` 等のコミット規約があれば**それを優先**（上の汎用 Conventional Commits はフォールバック）
+- 例: omnicampus 系は `OMNI-XXXX: type(scope) 概要`（**日本語**）。例 `OMNI-2415: fix(submission) 提出物のOOMを修正`
+
 ## 注意事項
 - 各ステップでユーザーに確認を取ること！🙋‍♀️
 - ブランチ名はkebab-caseで変更内容を表す名前に

@@ -12,7 +12,7 @@
     stateVersion = "24.05";
 
     # ~/.local/bin を PATH に追加 (Claude Code native install 等)
-    sessionPath = [ "$HOME/.local/bin" ];
+    sessionPath = [ "$HOME/.local/bin" "$HOME/.headroom/bin" ];
 
     # Playwright ブラウザパス（書き込み可能な場所に配置し、npx playwright install で自動同期）
     sessionVariables = {

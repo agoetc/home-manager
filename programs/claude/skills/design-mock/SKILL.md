@@ -12,26 +12,29 @@ UIの設計・提案は**文章で説明しない。必ずHTMLモックを作っ
 ## ワークフロー
 
 1. **対象UIの様式を把握**: 改修案なら既存コンポを読み、使ってるUIフレームワーク(react-bootstrap / Tailwind / MUI等)・実ラベル(i18n)・実データ形状を合わせる。空想の見た目でなく**実物に寄せる**ほど合意が早い。
-2. **自己完結HTMLを書く** (`/tmp/<name>.html`): CSSは**インラインで自前**。CDN(bootstrap等)に依存しない(スクショ環境で読めない/遅い)。対象フレームワークの見た目を近似するだけでよい。複数ステートはラベル付きで縦に並べ、矢印で遷移を示す。
-3. **スクショ** (Playwright CLI 一発。`file://` を直接渡す):
+2. **自己完結HTMLを書く** (`/tmp/<name>.html` — 中間ファイル): CSSは**インラインで自前**。CDN(bootstrap等)に依存しない(スクショ環境で読めない/遅い)。対象フレームワークの見た目を近似するだけでよい。複数ステートはラベル付きで縦に並べ、矢印で遷移を示す。
+3. **スクショ** (Playwright CLI 一発。`file://` を直接渡す。**PNGは永続dirに出力**):
    ```sh
+   mkdir -p ~/Desktop/design-mocks
    npx --yes playwright@latest screenshot --full-page --viewport-size=860,1200 \
-     "file:///tmp/<name>.html" /tmp/<name>.png
+     "file:///tmp/<name>.html" ~/Desktop/design-mocks/<name>.png
    ```
    - `--viewport-size` の **幅**を決める(カードUIなら 800〜860)。高さは初期値で、`--full-page` がコンテンツ全高を撮る
+   - **出力先は永続dir `~/Desktop/design-mocks/`**。`/tmp` に置くと後片付け(手順6)で消え、配信後にユーザーが再閲覧できなくなる(既知バグ)。永続dirなら消えない
    - 出力パスを自分で指定するので **PNG探し不要・repo汚染なし**(`.playwright-mcp/` も落ちない)
    - ブラウザ(ヘッドレス Chromium)は内部で起動→終了するので `browser_close` 等の後始末不要
    - レンダ待ちが要るUI(Webフォント/遅延描画)は `--wait-for-timeout=500` を足す
 4. **余白トリム** (任意・macOS `sips`): `--full-page` は基本コンテンツ高にフィットするので通常は不要。下に余白が出たときだけ:
    ```sh
-   sips -g pixelWidth -g pixelHeight /tmp/<name>.png        # 寸法取得
-   sips -c <新height> <width> /tmp/<name>.png --out /tmp/<name>_trim.png   # 上から切り抜き
+   sips -g pixelWidth -g pixelHeight ~/Desktop/design-mocks/<name>.png        # 寸法取得
+   sips -c <新height> <width> ~/Desktop/design-mocks/<name>.png --out ~/Desktop/design-mocks/<name>_trim.png   # 上から切り抜き
    ```
-5. **画像で配信**: `SendUserFile({files:["/tmp/<name>.png"], caption:"<各状態の要点>", status:"normal"})`。captionに各ステートの意図を1行で。トリムした場合は `_trim.png` を送る。
-6. **後片付け**: `/tmp` 配下のみ。
+5. **画像で配信**: `SendUserFile({files:["/Users/<user>/Desktop/design-mocks/<name>.png"], caption:"<各状態の要点>", status:"normal"})`。captionに各ステートの意図を1行で。トリムした場合は `_trim.png` を送る。**`~` は SendUserFile では展開されないので絶対パスで渡す**(`echo $HOME` 等で確認)。
+6. **後片付け**: **中間HTMLのみ削除。PNGは永続dirに残す(消さない)** — 配信後もユーザーが開けるようにするため。
    ```sh
-   rm -f /tmp/<name>.html /tmp/<name>.png /tmp/<name>_trim.png
+   rm -f /tmp/<name>.html
    ```
+   - PNGは `~/Desktop/design-mocks/<name>.png` に保持。古いモックの掃除はユーザー判断で手動(自動 `rm` しない)
 
 ## なぜ HTTPサーバが要らないか
 
