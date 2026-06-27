@@ -3,6 +3,10 @@
 {
   programs.mise = {
     enable = true;
+    # Nix ビルドサンドボックスは setuid/setgid ビットを保持できず、
+    # mise の oci::layer 権限保持テストが落ちてビルド失敗するため checkPhase を無効化。
+    # (mise 本体のバグではなく環境依存。新バージョン追従時に再評価)
+    package = pkgs.mise.overrideAttrs (_: { doCheck = false; });
     enableZshIntegration = true;
     enableFishIntegration = false;
     globalConfig = {
