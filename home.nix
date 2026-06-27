@@ -45,12 +45,10 @@
     ./programs/iterm2/default.nix
     ./programs/mem-watchdog/default.nix
     ./programs/mise/default.nix
-    ./programs/multi-agent-shogun/default.nix
     ./programs/nvim/default.nix
     ./programs/packages/default.nix
     ./programs/ssh/default.nix
     ./programs/tmux/default.nix
-    ./programs/wezterm/default.nix
     ./programs/zsh/default.nix
   ];
 }
