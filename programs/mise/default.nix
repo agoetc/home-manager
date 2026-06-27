@@ -18,7 +18,7 @@
         terraform = "1.7.0";
         java = "temurin-25.0.0+36.0.LTS";
         "scala-cli" = "latest";
-        "github:endevco/aube" = "latest";
+        pnpm = "latest";
         # Notion CLI (公式 ntn) - coding agent から bash 経由で叩く用
         "npm:ntn" = "latest";
       };
